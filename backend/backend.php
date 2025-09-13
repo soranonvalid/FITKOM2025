@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json"); 
-include "./backend/koneksi.php";    
+include "koneksi.php";    
 
 $method = $_SERVER["REQUEST_METHOD"];
 
@@ -12,7 +12,7 @@ switch ($method) {
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
-        }
+        };
         echo json_encode($data);
         break;
 
