@@ -4,7 +4,7 @@ $("#create").click(function () {
   $("#editPrompt").removeClass("active");
 });
 
-$("#edit").click(function () {
+$("#edit").on("click", function () {
   $(".prompt-frame").addClass("active");
   $("#editPrompt").addClass("active");
   $("#createPrompt").removeClass("active");
@@ -15,3 +15,9 @@ $(".close").click(function () {
   $("#createPrompt").removeClass("active");
   $("#editPrompt").removeClass("active");
 });
+
+fetch("./backend/backend.php")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
+  });
