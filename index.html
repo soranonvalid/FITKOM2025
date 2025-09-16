@@ -34,20 +34,64 @@
 
         <form>
           <div class="input-group">
-            <label for="">Kode</label>
-            <input type="text" name="kode" id="kode" />
+            <label for="createkode">Kode</label>
+            <input
+              placeholder="P00..."
+              type="text"
+              name="kode"
+              id="createkode"
+            />
           </div>
           <div class="input-group">
-            <label for="">Nama</label>
-            <input type="text" name="nama" id="nama" />
+            <label for="createnama">Nama</label>
+            <input
+              placeholder="Sayur..."
+              type="text"
+              name="nama"
+              id="createnama"
+            />
           </div>
           <div class="input-group">
-            <label for="">Satuan</label>
-            <input type="text" name="satuan" id="satuan" />
+            <label for="createsatuan">Satuan</label>
+            <select name="satuan" id="createsatuan" class="invalid">
+              <option disabled selected value="">( Pcs, Kg, Gros... )</option>
+              <option value="pcs">Pcs</option>
+              <option value="pcs">Ons</option>
+              <option value="pcs">Kg</option>
+              <option value="pcs">Gros</option>
+            </select>
           </div>
           <div class="input-group">
-            <label for="">Harga</label>
-            <input type="number" name="harga" id="harga" />
+            <label for="createharga">Harga</label>
+            <input
+              placeholder="0"
+              type="number"
+              name="harga"
+              id="createharga"
+            />
+          </div>
+          <div class="input-group">
+            <label for="creategambar">Gambar</label>
+            <div class="image-input-opt">
+              <select class="ignore" name="creategambar" id="creategambar">
+                <option selected value="url">Url</option>
+                <option value="upload">Upload</option>
+              </select>
+              <input
+                type="text"
+                name="imageurl"
+                id="createimageurl"
+                placeholder="https://..."
+                class="image-url-input ignore"
+              />
+              <div class="image-upload-input ignore disabled">
+                <input type="file" name="imageupload" id="createimageupload" />
+                <label id="imageupload" for="imageupload">
+                  <i class="fa-solid fa-upload"></i>
+                  Upload
+                </label>
+              </div>
+            </div>
           </div>
           <div class="button-group">
             <button class="primary">Simpan</button>
@@ -84,6 +128,8 @@
         </form>
       </div>
     </div>
+
+    <!-- main page -->
     <main>
       <header>
         <h1>Product List</h1>
