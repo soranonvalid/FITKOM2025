@@ -1,54 +1,59 @@
-$("#create").on("click", function () {
-  $(".prompt-frame").addClass("active");
-  $("#createPrompt").addClass("active");
-  $("#editPrompt").removeClass("active");
-});
+// Prompt handler
+const promptHandler = (type) => {
+  $(`#${type}`).on("click", function () {
+    $(".prompt-frame").addClass("active");
+    $(`#${type}Prompt`).addClass("active");
+  });
+};
 
-$("#edit").on("click", function () {
-  $(".prompt-frame").addClass("active");
-  $("#editPrompt").addClass("active");
-  $("#createPrompt").removeClass("active");
-});
-
-$(".close").on("click", function () {
+const closePromptForce = () => {
   $(".prompt-frame").removeClass("active");
   $("#createPrompt").removeClass("active");
   $("#editPrompt").removeClass("active");
-});
-
-$(".prompt-frame").on("click", function (e) {
-  {
-    if (e.target === this) {
-      $(".prompt-frame").removeClass("active");
-      $("#createPrompt").removeClass("active");
-      $("#editPrompt").removeClass("active");
-    }
-  }
-});
+};
 
 $(function () {
-  $("#creategambar").on("change", function () {
-    let val = $(this).val();
+  promptHandler("create");
+  promptHandler("edit");
 
-    if (val === "url") {
-      $(".image-url-input").show();
-      $(".image-upload-input").hide().addClass("disabled");
-    } else if (val === "upload") {
-      $(".image-url-input").hide();
-      $(".image-upload-input").show().removeClass("disabled");
-    }
+  $(".close").on("click", function () {
+    closePromptForce();
   });
 
-  $("#imageupload").on("change", function () {
-    let file = this.files[0]; // get the first file
+  $(".prompt-frame").on("click", function (e) {
+    {
+      if (e.target === this) {
+        closePromptForce();
+      }
+    }
+  });
+});
+
+// Image input switcher (SORA)
+const imageSwitchers = (type) => {
+  $(`#${type}gambar`).on("change", function () {
+    let val = $(this).val();
+    if (val === "url") {
+      $(`.${type}gambar.image-url-input`).show();
+      $(`.${type}gambar.image-upload-input`).hide().addClass("disabled");
+    } else if (val === "upload") {
+      $(`.${type}gambar.image-url-input`).hide();
+      $(`.${type}gambar.image-upload-input`).show().removeClass("disabled");
+    }
+  });
+  $(`#${type}imageupload`).on("change", function () {
+    let file = this.files[0];
     if (file) {
-      // update the label text to filename
       $(this).siblings("label").text(file.name);
     } else {
-      // reset if no file
       $(this).siblings("label").text("Upload");
     }
   });
+  $(`#${type}gambar`).trigger("change");
+};
 
-  $("#creategambar").trigger("change");
+// cuman ada "create" sama "edit"
+$(function () {
+  imageSwitchers("create");
+  imageSwitchers("edit");
 });

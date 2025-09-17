@@ -72,7 +72,7 @@
           </div>
           <div class="input-group">
             <label for="creategambar">Gambar</label>
-            <div class="image-input-opt">
+            <div class="creategambar image-input-opt">
               <select class="ignore" name="creategambar" id="creategambar">
                 <option selected value="url">Url</option>
                 <option value="upload">Upload</option>
@@ -82,11 +82,11 @@
                 name="imageurl"
                 id="createimageurl"
                 placeholder="https://..."
-                class="image-url-input ignore"
+                class="creategambar image-url-input ignore"
               />
-              <div class="image-upload-input ignore disabled">
+              <div class="creategambar image-upload-input ignore disabled">
                 <input type="file" name="imageupload" id="createimageupload" />
-                <label id="imageupload" for="imageupload">
+                <label id="imageupload" for="createimageupload">
                   <i class="fa-solid fa-upload"></i>
                   Upload
                 </label>
@@ -99,6 +99,7 @@
         </form>
       </div>
 
+      <!-- Edit Prompt -->
       <div id="editPrompt" class="prompt">
         <button class="close default">
           <i class="fa-solid fa-xmark"></i>
@@ -106,20 +107,49 @@
 
         <form>
           <div class="input-group">
-            <label for="">Kode</label>
-            <input type="text" name="kode" id="kode" />
+            <label for="editkode">Kode</label>
+            <input type="text" name="kode" id="editkode" />
           </div>
           <div class="input-group">
-            <label for="">Nama</label>
-            <input type="text" name="nama" id="nama" />
+            <label for="editnama">Nama</label>
+            <input type="text" name="nama" id="editnama" />
           </div>
           <div class="input-group">
-            <label for="">Satuan</label>
-            <input type="text" name="satuan" id="satuan" />
+            <label for="editsatuan">Satuan</label>
+            <select name="satuan" id="editsatuan" class="invalid">
+              <option disabled selected value="">( Pcs, Kg, Gros... )</option>
+              <option value="pcs">Pcs</option>
+              <option value="pcs">Ons</option>
+              <option value="pcs">Kg</option>
+              <option value="pcs">Gros</option>
+            </select>
           </div>
           <div class="input-group">
-            <label for="">Harga</label>
-            <input type="number" name="harga" id="harga" />
+            <label for="editharga">Harga</label>
+            <input type="number" name="harga" id="editharga" />
+          </div>
+          <div class="input-group">
+            <label for="editgambar">Gambar</label>
+            <div class="editgambar image-input-opt">
+              <select class="ignore" name="editgambar" id="editgambar">
+                <option selected value="url">Url</option>
+                <option value="upload">Upload</option>
+              </select>
+              <input
+                type="text"
+                name="imageurl"
+                id="editimageurl"
+                placeholder="https://..."
+                class="editgambar image-url-input ignore"
+              />
+              <div class="editgambar image-upload-input ignore disabled">
+                <input type="file" name="imageupload" id="editimageupload" />
+                <label id="editimageupload" for="editimageupload">
+                  <i class="fa-solid fa-upload"></i>
+                  Upload
+                </label>
+              </div>
+            </div>
           </div>
           <div class="button-group">
             <button class="primary">Simpan</button>
