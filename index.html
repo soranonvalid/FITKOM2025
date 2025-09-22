@@ -32,7 +32,7 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <form>
+        <form class="addForm">
           <div class="input-group">
             <label for="createkode">Kode</label>
             <input
@@ -45,7 +45,7 @@
           <div class="input-group">
             <label for="createnama">Nama</label>
             <input
-              placeholder="Sayur..."
+              placeholder="Nama produk"
               type="text"
               name="nama"
               id="createnama"
@@ -55,10 +55,10 @@
             <label for="createsatuan">Satuan</label>
             <select name="satuan" id="createsatuan" class="invalid">
               <option disabled selected value="">( Pcs, Kg, Gros... )</option>
-              <option value="pcs">Pcs</option>
-              <option value="pcs">Ons</option>
-              <option value="pcs">Kg</option>
-              <option value="pcs">Gros</option>
+              <option value="pcs" name="addFormSelect">Pcs</option>
+              <option value="ons" name="addFormSelect">Ons</option>
+              <option value="kg" name="addFormSelect">Kg</option>
+              <option value="gros" name="addFormSelect">Gros</option>
             </select>
           </div>
           <div class="input-group">
@@ -85,7 +85,12 @@
                 class="creategambar image-url-input ignore"
               />
               <div class="creategambar image-upload-input ignore disabled">
-                <input type="file" name="imageupload" id="createimageupload" />
+                <input
+                  type="file"
+                  name="imageupload"
+                  id="createimageupload"
+                  accept="image/jpeg, image/png"
+                />
                 <label id="imageupload" for="createimageupload">
                   <i class="fa-solid fa-upload"></i>
                   Upload
@@ -105,7 +110,7 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
 
-        <form>
+        <form class="editForm">
           <div class="input-group">
             <label for="editkode">Kode</label>
             <input type="text" name="kode" id="editkode" />
@@ -119,9 +124,9 @@
             <select name="satuan" id="editsatuan" class="invalid">
               <option disabled selected value="">( Pcs, Kg, Gros... )</option>
               <option value="pcs">Pcs</option>
-              <option value="pcs">Ons</option>
-              <option value="pcs">Kg</option>
-              <option value="pcs">Gros</option>
+              <option value="ons">Ons</option>
+              <option value="kg">Kg</option>
+              <option value="gros">Gros</option>
             </select>
           </div>
           <div class="input-group">
@@ -143,7 +148,12 @@
                 class="editgambar image-url-input ignore"
               />
               <div class="editgambar image-upload-input ignore disabled">
-                <input type="file" name="imageupload" id="editimageupload" />
+                <input
+                  type="file"
+                  name="imageupload"
+                  id="editimageupload"
+                  accept="image/jpeg, image/png"
+                />
                 <label id="editimageupload" for="editimageupload">
                   <i class="fa-solid fa-upload"></i>
                   Upload
@@ -152,8 +162,8 @@
             </div>
           </div>
           <div class="button-group">
-            <button class="primary">Simpan</button>
-            <button class="warning">Delete</button>
+            <button class="primary" type="submit">Simpan</button>
+            <button class="warning" id="delete" type="button">Delete</button>
           </div>
         </form>
       </div>
@@ -163,7 +173,7 @@
     <main>
       <header>
         <h1>Product List</h1>
-        <button id="create" class="primary">
+        <button id="create" class="primary create">
           <i class="fa-solid fa-plus"></i>
           Tambah
         </button>
@@ -188,25 +198,7 @@
               <th>Harga</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="action">
-                <button id="edit" class="default">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-              </td>
-              <td id="img">
-                <img
-                  src="https://i.pinimg.com/736x/09/80/0e/09800e07e1cd9b4ec5e4c0ecf4a965f8.jpg"
-                  alt=""
-                />
-              </td>
-              <td id="kode">P001</td>
-              <td id="nama">Nama</td>
-              <td id="satuan">Pcs</td>
-              <td id="harga">Harga</td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </main>

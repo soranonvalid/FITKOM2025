@@ -334,7 +334,7 @@ form {
 
     .image-upload-input {
       margin-left: 1rem;
-      overflow-x: auto;
+      overflow: hidden;
       input {
         display: none;
       }

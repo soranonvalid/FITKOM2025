@@ -3,7 +3,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db = "sayur_mayur";
+$db = "smart_farm_db";
 $conn =  mysqli_connect($host , $user, $pass, $db);
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
