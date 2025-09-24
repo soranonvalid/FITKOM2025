@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product List</title>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="./style/reset.css" />
+    <link rel="stylesheet" href="./style/index.css" />
+    <!-- Script -->
+    <script src="./script/Jquery.js"></script>
+    <script defer type="module" src="./script/index.js"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <!-- Google Font (Nunito) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- prompt -->
+    <div class="prompt-frame">
+      <!-- Create Prompt -->
+      <div id="createPrompt" class="prompt">
+        <button class="close default">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <form id="createForm" class="createForm">
+          <div id="input-create-kode" class="input-group">
+            <label for="createkode">Kode</label>
+            <input
+              placeholder="P00..."
+              type="text"
+              name="kode"
+              id="createkode"
+            />
+          </div>
+          <div id="input-create-nama" class="input-group">
+            <label for="createnama">Nama</label>
+            <input
+              placeholder="Nama produk"
+              type="text"
+              name="nama"
+              id="createnama"
+            />
+          </div>
+          <div id="input-create-satuan" class="input-group">
+            <label for="createsatuan">Satuan</label>
+            <select name="satuan" id="createsatuan" class="satuan invalid">
+              <option disabled selected value="">( Pcs, Ons, Kg... )</option>
+              <option value="pcs" name="createFormSelect">Pcs</option>
+              <option value="ons" name="createFormSelect">Ons</option>
+              <option value="kg" name="createFormSelect">Kg</option>
+              <option value="gros" name="createFormSelect">Gros</option>
+            </select>
+          </div>
+          <div id="input-create-harga" class="input-group">
+            <label for="createharga">Harga</label>
+            <input
+              placeholder="0"
+              name="harga"
+              id="createharga"
+              max="99999999999999"
+            />
+          </div>
+          <div id="input-create-gambar" class="input-group">
+            <label for="creategambar">Gambar</label>
+            <div class="creategambar image-input-opt error">
+              <select class="ignore" name="creategambar" id="creategambar">
+                <option selected value="url">Url</option>
+                <option value="upload">Upload</option>
+              </select>
+              <input
+                type="text"
+                name="imageurl"
+                id="createimageurl"
+                placeholder="https://..."
+                class="creategambar image-url-input ignore"
+              />
+              <div class="creategambar image-upload-input ignore disabled">
+                <input
+                  type="file"
+                  name="imageupload"
+                  id="createimageupload"
+                  accept="image/jpeg, image/png"
+                />
+                <label id="imageupload" for="createimageupload">
+                  <i class="fa-solid fa-upload"></i>
+                  Upload
+                </label>
+              </div>
+            </div>
+          </div>
+          <p class="errorNote" id="createErrorNote"></p>
+          <div class="button-group">
+            <button class="primary">Simpan</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Edit Prompt -->
+      <div id="editPrompt" class="prompt">
+        <button class="close default">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <form class="editForm">
+          <div id="input-edit-kode" class="input-group">
+            <label for="editkode">Kode</label>
+            <input placeholder="P00..." type="text" name="kode" id="editkode" />
+          </div>
+          <div id="input-edit-nama" class="input-group">
+            <label for="editnama">Nama</label>
+            <input
+              placeholder="Nama produk"
+              type="text"
+              name="nama"
+              id="editnama"
+            />
+          </div>
+          <div id="input-edit-satuan" class="input-group">
+            <label for="editsatuan">Satuan</label>
+            <select name="satuan" id="editsatuan" class="satuan invalid">
+              <option disabled selected value="">( Pcs, Ons, Kg... )</option>
+              <option value="pcs" name="editFormSelect">Pcs</option>
+              <option value="ons" name="editFormSelect">Ons</option>
+              <option value="kg" name="editFormSelect">Kg</option>
+              <option value="gros" name="editFormSelect">Gros</option>
+            </select>
+          </div>
+          <div id="input-edit-harga" class="input-group">
+            <label for="editharga">Harga</label>
+            <input
+              placeholder="0"
+              name="harga"
+              id="editharga"
+              max="99999999999999"
+            />
+          </div>
+          <div id="input-edit-gambar" class="input-group">
+            <label for="editgambar">Gambar</label>
+            <div class="editgambar image-input-opt error">
+              <select class="ignore" name="editgambar" id="editgambar">
+                <option selected value="url">Url</option>
+                <option value="upload">Upload</option>
+              </select>
+              <input
+                type="text"
+                name="imageurl"
+                id="editimageurl"
+                placeholder="https://..."
+                class="editgambar image-url-input ignore"
+              />
+              <div class="editgambar image-upload-input ignore disabled">
+                <input
+                  type="file"
+                  name="imageupload"
+                  id="editimageupload"
+                  accept="image/jpeg, image/png"
+                />
+                <label id="imageupload" for="editimageupload">
+                  <i class="fa-solid fa-upload"></i>
+                  Upload
+                </label>
+              </div>
+            </div>
+          </div>
+          <p class="errorNote" id="editErrorNote"></p>
+          <div class="button-group">
+            <button class="warning" id="delete" type="button">Delete</button>
+            <button class="primary" type="submit">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- main page -->
+    <main>
+      <header>
+        <h1>Product List</h1>
+        <button id="create" class="primary create">
+          <i class="fa-solid fa-plus"></i>
+          Tambah
+        </button>
+      </header>
+      <div class="wrapper">
+        <table style="width: 100%">
+          <colgroup>
+            <col span="1" style="width: 1%" />
+            <col span="1" style="width: 15%" />
+            <col span="1" style="width: 5%" />
+            <col span="1" style="width: 20%" />
+            <col span="1" style="width: 3%" />
+            <col span="1" style="width: 20%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Gambar</th>
+              <th>Kode</th>
+              <th>Nama</th>
+              <th>Satuan</th>
+              <th>Harga</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
