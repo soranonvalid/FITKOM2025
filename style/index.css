@@ -301,7 +301,7 @@ form {
 
   .errorNote {
     font-size: 0.75rem;
-    color: var(--color-invalid);
+    color: var(--color-invalid) !important;
     font-style: italic;
     &.active::before {
       content: "* ";

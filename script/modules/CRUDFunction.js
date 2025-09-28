@@ -1,6 +1,17 @@
-import { getData } from "../index.js";
+const getData = async (state) => {
+  try {
+    await fetch("./backend/backend.php")
+      .then((res) => res.json())
+      .then((data) => {
+        state(data);
+        console.log(data);
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-const deleteData = async (id) => {
+const deleteData = async (id, state) => {
   try {
     await fetch("./backend/backend.php", {
       method: "DELETE",
@@ -11,13 +22,13 @@ const deleteData = async (id) => {
       .then((data) => {
         console.log(data);
       });
-    await getData();
+    await getData(state);
   } catch (err) {
     console.log(err);
   }
 };
 
-const postData = async (data) => {
+const postData = async (data, state) => {
   try {
     await fetch("./backend/backend.php", {
       method: "POST",
@@ -28,13 +39,13 @@ const postData = async (data) => {
       .then((data) => {
         console.log(data);
       });
-    await getData();
+    await getData(state);
   } catch (err) {
     console.log(err);
   }
 };
 
-const updateData = async (newData) => {
+const updateData = async (newData, state) => {
   try {
     await fetch("./backend/backend.php", {
       method: "PUT",
@@ -45,10 +56,10 @@ const updateData = async (newData) => {
       .then((data) => {
         console.log(data);
       });
-    await getData();
+    await getData(state);
   } catch (err) {
     console.log(err);
   }
 };
 
-export { deleteData, postData, updateData };
+export { getData, deleteData, postData, updateData };

@@ -12,4 +12,22 @@ const convertToBase64 = (file) => {
   });
 };
 
-export { convertNumber, convertToBase64 };
+function pushNotification(message, type) {
+  const $notification = $(
+    `
+      <div class="notification">
+      <p>${message}</p>
+      <div class="ribbon ${type}"></div>
+    `
+  );
+
+  $("#toast").append($notification);
+  setTimeout(() => {
+    $notification.addClass("timeout");
+    setTimeout(() => {
+      $notification.remove();
+    }, 400);
+  }, 2000);
+}
+
+export { convertNumber, convertToBase64, pushNotification };

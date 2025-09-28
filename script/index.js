@@ -6,8 +6,17 @@ import {
   realTimeHarga,
   formValidation,
 } from "./modules/promptControl.js";
-import { convertNumber, convertToBase64 } from "./modules/utils.js";
-import { deleteData, postData, updateData } from "./modules/CRUDFunction.js";
+import {
+  convertNumber,
+  convertToBase64,
+  pushNotification,
+} from "./modules/utils.js";
+import {
+  getData,
+  deleteData,
+  postData,
+  updateData,
+} from "./modules/CRUDFunction.js";
 
 // port useState
 const state = (initial) => {
@@ -19,24 +28,6 @@ const state = (initial) => {
   };
   return [get, set];
 };
-
-function pushNotification(message, type) {
-  const $notification = $(
-    `
-      <div class="notification">
-      <p>${message}</p>
-      <div class="ribbon ${type}"></div>
-    `
-  );
-
-  $("#toast").append($notification);
-  setTimeout(() => {
-    $notification.addClass("timeout");
-    setTimeout(() => {
-      $notification.remove();
-    }, 400);
-  }, 2000);
-}
 
 // function close propmt
 $(function () {
@@ -99,48 +90,41 @@ export const render = () => {
 const [id, setId] = state(null);
 const [products, setProducts] = state([]);
 
-export const getData = async () => {
-  try {
-    await fetch("./backend/backend.php")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        console.log(data);
-      });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 // Handling
 export const createDataHandler = async (data) => {
   console.log("data created: ", data);
   if (data.creategambar === "url") {
     try {
-      await postData({
-        gambar: data.imageurl,
-        kode: data.kode,
-        harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
-        satuan: data.satuan,
-        nama: data.nama,
-      });
-      console.log("Berhasil");
+      await postData(
+        {
+          gambar: data.imageurl,
+          kode: data.kode,
+          harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
+          satuan: data.satuan,
+          nama: data.nama,
+        },
+        setProducts
+      );
       closePromptForce();
+      pushNotification("Data berhasil ditambah!", "primary");
     } catch (err) {
       console.error(err);
     }
   } else {
     try {
       const base64 = await convertToBase64(data.imageupload);
-      await postData({
-        gambar: base64,
-        kode: data.kode,
-        harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
-        satuan: data.satuan,
-        nama: data.nama,
-      });
-      console.log("Berhasil");
+      await postData(
+        {
+          gambar: base64,
+          kode: data.kode,
+          harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
+          satuan: data.satuan,
+          nama: data.nama,
+        },
+        setProducts
+      );
       closePromptForce();
+      pushNotification("Data berhasil ditambah!", "primary");
     } catch (err) {
       console.error(err);
     }
@@ -151,16 +135,19 @@ export const editDataHandler = async (data) => {
   console.log("data edited: ", data);
   if (data.editgambar === "url") {
     try {
-      await updateData({
-        id: id(),
-        gambar: data.imageurl,
-        kode: data.kode,
-        harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
-        satuan: data.satuan,
-        nama: data.nama,
-      });
+      await updateData(
+        {
+          id: id(),
+          gambar: data.imageurl,
+          kode: data.kode,
+          harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
+          satuan: data.satuan,
+          nama: data.nama,
+        },
+        setProducts
+      );
       closePromptForce();
-      console.log("Berhasil");
+      pushNotification("Data berhasil diedit!", "primary");
     } catch (err) {
       console.log(err);
     }
@@ -168,16 +155,19 @@ export const editDataHandler = async (data) => {
     if (data.imageupload.name !== "") {
       try {
         const base64 = await convertToBase64(data.imageupload);
-        await updateData({
-          id: id(),
-          gambar: base64,
-          kode: data.kode,
-          harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
-          satuan: data.satuan,
-          nama: data.nama,
-        });
-        console.log("Berhasil");
+        await updateData(
+          {
+            id: id(),
+            gambar: base64,
+            kode: data.kode,
+            harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
+            satuan: data.satuan,
+            nama: data.nama,
+          },
+          setProducts
+        );
         closePromptForce();
+        pushNotification("Data berhasil diedit!", "primary");
       } catch (err) {
         console.log(err);
       }
@@ -206,14 +196,14 @@ $(".editForm").on("submit", async function (e) {
 
   const data = Object.fromEntries(formData.entries());
   formValidation(data, "edit");
-  pushNotification("Data berhasil di edit!", "primary");
 });
 
 // delete
 $("#delete").on("click", async function () {
   try {
-    await deleteData(id());
+    await deleteData(id(), setProducts);
     closePromptForce();
+    pushNotification("Data berhasil dihapus!", "error");
     setId(null);
   } catch (err) {
     console.log(err);
@@ -262,4 +252,4 @@ $(document).on("click", ".edit", function () {
   $("#editPrompt").addClass("active");
 });
 
-getData();
+getData(setProducts);
