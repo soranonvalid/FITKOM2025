@@ -20,6 +20,24 @@ const state = (initial) => {
   return [get, set];
 };
 
+function pushNotification(message, type) {
+  const $notification = $(
+    `
+      <div class="notification">
+      <p>${message}</p>
+      <div class="ribbon ${type}"></div>
+    `
+  );
+
+  $("#toast").append($notification);
+  setTimeout(() => {
+    $notification.addClass("timeout");
+    setTimeout(() => {
+      $notification.remove();
+    }, 400);
+  }, 2000);
+}
+
 // function close propmt
 $(function () {
   promptHandler("create");
@@ -56,7 +74,7 @@ export const render = () => {
      <tr>
         <td class="action">
           <button class="default edit" data-id="${product?.id}">
-            <i class="fa-solid fa-pen-to-square"></i>
+            <i class="fa-solid fa-pen-to-square fa-lg"></i>
           </button>
         </td>
         <td id="img">
@@ -188,6 +206,7 @@ $(".editForm").on("submit", async function (e) {
 
   const data = Object.fromEntries(formData.entries());
   formValidation(data, "edit");
+  pushNotification("Data berhasil di edit!", "primary");
 });
 
 // delete

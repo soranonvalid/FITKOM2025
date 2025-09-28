@@ -65,7 +65,7 @@ html {
   }
 
   /* dark mode */
-  *:not(i):not(td):not(th):not(img) {
+  *:not(i):not(td):not(th):not(img):not(.notification) {
     color: var(--color-contrast);
     background-color: var(--color-default);
   }
@@ -90,6 +90,26 @@ html {
   to {
     opacity: 1;
     translate: 0 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes animationOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 
@@ -208,7 +228,7 @@ table {
   padding: 1rem;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5) !important;
   z-index: 9999;
   display: flex;
   justify-content: center;
@@ -385,6 +405,58 @@ form {
       overflow: hidden;
       input {
         display: none;
+      }
+    }
+  }
+}
+
+#toast {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 9999;
+
+  .notification {
+    background-color: var(--color-default);
+    padding: 1rem 1rem 1.2rem 1rem;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    border: solid 1px var(--color-border);
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.2s ease-in-out;
+
+    &.timeout {
+      animation: animationOut 0.2s ease-in-out forwards;
+    }
+
+    p {
+      background-color: transparent;
+    }
+
+    .ribbon {
+      width: 100%;
+      height: 6px;
+      background-color: var(--color-unique);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      &.primary {
+        background-color: #287ee6;
+      }
+
+      &.error {
+        background-color: var(--color-invalid);
+      }
+
+      &.warning {
+        background-color: rgb(243, 243, 102);
       }
     }
   }
