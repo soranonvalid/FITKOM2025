@@ -1,61 +1,97 @@
-README YANG BERTUJUAN UNTUK MENGATASI JIKA ADA MASALAH YANG DIALAMI PANITIA :D
+# 📌 Panduan Instalasi & Menjalankan Project
 
-**INSTALASI DATABASE**
+README ini bertujuan untuk membantu panitia jika mengalami kendala saat menjalankan project. Silakan ikuti langkah-langkah berikut dengan seksama. 😀
 
-UNTUK MENGINSTALASI DATABSE ADA DUA CARA:
+---
 
--- 1. MENGGUNAKAN COMMAND PROMPT ATAU TERMINAL
+## ⚙️ Instalasi Database
 
-- Pastikan sudah menginstall XAMPP Control Panel
-- Nyalakan MySQL
-- Buka command prompt atau terminal yang ada di device
-- Change directory ke MySQL dengan syntax di bawah
-- cd c:/xampp/mysql/bin
-- Aktifkan MariaDB atau MySQL nya menggunakan syntax di bawah
-- mysql -u root
-- Setelah itu jalanin satu persatu syntax yang ada di "database/smart_farm_db.sql"
+Terdapat **2 cara** untuk menginstalasi database:
 
--- 2. MENGGUNAKAN localhost/phpmyadmin
+### 1. Menggunakan Command Prompt / Terminal
 
-- Pastikan sudah menginstall XAMPP Control Panel
-- Nyalakan MySQL dan Apache
-- Buka browser dan ketik "localhost/phpmyadmin"
-- Tekan import yang ada di atas atau semacam navbar
-- Tekan input file dan masukkan file yang ada di "database/smart_farm_db.sql"
+1. Pastikan sudah menginstall **XAMPP Control Panel**.
+2. Nyalakan **MySQL**.
+3. Buka **Command Prompt / Terminal** di perangkat.
+4. Pindah ke direktori MySQL dengan perintah:
+   ```bash
+   cd c:/xampp/mysql/bin
+   ```
+5. Aktifkan **MariaDB/MySQL** dengan perintah:
+   ```bash
+   mysql -u root
+   ```
+6. Jalankan syntax yang ada di file:
+   ```
+   database/smart_farm_db.sql
+   ```
+   secara berurutan.
 
-**------------------**
+---
 
-**MENJALANKAN PROJECT**
+### 2. Menggunakan phpMyAdmin
 
-- Pastikan sudah menginstall XAMPP Control Panel
-- Nyalakan MySQL dan Apache
-- Copy atau cut folder ini ke c:/xampp/htdocs/
-- lalu buka browser dan ketik "localhost/(NAMA FOLDER INI\*)"
-- \*karena nama folder tidak menentu atau bisa saja terjadi duplicate dan pastikan nama foldernya valid atau tidak ada spasi atau karakter yang membuat url tidak valid atau tidak bisa dibuka
-- setelah itu project akan tampil
+1. Pastikan sudah menginstall **XAMPP Control Panel**.
+2. Nyalakan **MySQL** dan **Apache**.
+3. Buka browser, lalu ketik:
+   ```
+   localhost/phpmyadmin
+   ```
+4. Klik menu **Import** di bagian atas.
+5. Pilih file:
+   ```
+   database/smart_farm_db.sql
+   ```
+6. Tekan **Go / Jalankan**, lalu database akan otomatis terinstal.
 
-**------------------**
+---
 
-**PENJELASAN, TOOLS DAN BAHASA YANG DIGUNAKAN**
+## ▶️ Menjalankan Project
 
--- 1. PENJELASAN
+1. Pastikan sudah menginstall **XAMPP Control Panel**.
+2. Nyalakan **MySQL** dan **Apache**.
+3. Copy atau cut folder project ini ke:
+   ```
+   c:/xampp/htdocs/
+   ```
+4. Buka browser, lalu ketik:
 
-- Frontend yang ada di project ini menggunakan HTML CSS dan JavaScript
-- dan Backend yang digunakan di project ini menggunakan PHP native untuk menghubungkan ke MySQL
-- Project ini menggunakan tipe modular untuk memisahkan function function atau membuat satu file javascript yang menghubung satu sama lain yang membuat lebih mudah dibaca dan membagi per-javascript mempunyai tanggung jawabnya masing masing
+   ```
+   localhost/(NAMA_FOLDER)
+   ```
 
--- 2. TOOLS DAN BAHASA YANG DIGUNAKAN
+   ⚠️ **Catatan penting:**
 
-- JQuery
-- Vanilla JS
-- PHP Native
-- CSS
+   - Pastikan nama folder **valid** (tidak ada spasi atau karakter aneh).
+   - Jika ada duplikasi nama folder, gunakan nama unik agar tidak terjadi konflik.
 
-**------------------**
+5. Jika berhasil, project akan tampil di browser. 🎉
 
-====================================================
+---
 
-Worked By: Sora and Diqy
-GitHub Repository: https://github.com/soranonvalid/FITKOM2025
+## 📖 Penjelasan, Tools & Bahasa yang Digunakan
 
-====================================================
+### 1. Penjelasan
+
+- **Frontend**: menggunakan **HTML, CSS, dan JavaScript**.
+- **Backend**: menggunakan **PHP Native** untuk koneksi ke **MySQL**.
+- Struktur project dibuat **modular**, di mana setiap file JavaScript memiliki tanggung jawab masing-masing agar mudah dibaca dan dipelihara.
+
+### 2. Tools & Bahasa yang Digunakan
+
+- **jQuery**
+- **Vanilla JavaScript**
+- **PHP Native**
+- **CSS**
+
+---
+
+## 👨‍💻 Developer Info
+
+- **Worked By**: [Sora](https://github.com/soranonvalid) & [Diqy](https://github.com/DiqySH)
+- **GitHub Repository**: [FITKOM2025](https://github.com/soranonvalid/FITKOM2025)
+
+---
+
+✨ Semoga panduan ini membantu panitia dalam mengatasi kendala teknis.  
+Jika masih ada error, cek kembali langkah-langkah di atas atau hubungi developer. 🚀
