@@ -5,6 +5,7 @@ import {
   satuanSwitchers,
   realTimeHarga,
   formValidation,
+  validationField,
 } from "./modules/promptControl.js";
 import {
   convertNumber,
@@ -54,6 +55,16 @@ $(function () {
   satuanSwitchers("edit");
   realTimeHarga("create");
   realTimeHarga("edit");
+});
+
+// quick validate
+$(".validate").on("input change", function () {
+  const type = $(this).hasClass("create")
+    ? "create"
+    : $(this).hasClass("edit")
+    ? "edit"
+    : null;
+  validationField(this);
 });
 
 // render function
@@ -210,7 +221,7 @@ $("#delete").on("click", async function () {
   }
 });
 
-// reload data
+// reload data for edit
 $(document).on("click", ".edit", function () {
   const selectedId = $(this).data("id");
   setId(selectedId);
@@ -224,27 +235,6 @@ $(document).on("click", ".edit", function () {
     $("#editnama").val(selectedProduct.nama);
     $("#editsatuan").val(selectedProduct.satuan);
     $("#editharga").val(convertNumber(selectedProduct.harga));
-    $("#editimageurl").val(selectedProduct.gambar);
-  }
-
-  $(".prompt-frame").addClass("active");
-  $("#editPrompt").addClass("active");
-});
-
-// edit initializing
-$(document).on("click", ".edit", function () {
-  const selectedId = $(this).data("id");
-  setId(selectedId);
-
-  const selectedProduct = products().find(
-    (product) => product.id == selectedId
-  );
-
-  if (selectedProduct) {
-    $("#editkode").val(selectedProduct.kode);
-    $("#editnama").val(selectedProduct.nama);
-    $("#editsatuan").val(selectedProduct.satuan);
-    $("#editharga").val(selectedProduct.harga);
     $("#editimageurl").val(selectedProduct.gambar);
   }
 

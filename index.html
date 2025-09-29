@@ -40,6 +40,7 @@
               type="text"
               name="kode"
               id="createkode"
+              class="validate"
             />
           </div>
           <div id="input-create-nama" class="input-group">
@@ -49,11 +50,16 @@
               type="text"
               name="nama"
               id="createnama"
+              class="validate"
             />
           </div>
           <div id="input-create-satuan" class="input-group">
             <label for="createsatuan">Satuan</label>
-            <select name="satuan" id="createsatuan" class="satuan invalid">
+            <select
+              name="satuan"
+              id="createsatuan"
+              class="satuan validate invalid"
+            >
               <option disabled selected value="">( Pcs, Ons, Kg... )</option>
               <option value="pcs" name="createFormSelect">Pcs</option>
               <option value="ons" name="createFormSelect">Ons</option>
@@ -68,6 +74,7 @@
               name="harga"
               id="createharga"
               max="99999999999999"
+              class="validate"
             />
           </div>
           <div id="input-create-gambar" class="input-group">
@@ -114,7 +121,13 @@
         <form class="editForm">
           <div id="input-edit-kode" class="input-group">
             <label for="editkode">Kode</label>
-            <input placeholder="P00..." type="text" name="kode" id="editkode" />
+            <input
+              placeholder="P00..."
+              type="text"
+              name="kode"
+              class="validate"
+              id="editkode"
+            />
           </div>
           <div id="input-edit-nama" class="input-group">
             <label for="editnama">Nama</label>
@@ -123,11 +136,16 @@
               type="text"
               name="nama"
               id="editnama"
+              class="validate"
             />
           </div>
           <div id="input-edit-satuan" class="input-group">
             <label for="editsatuan">Satuan</label>
-            <select name="satuan" id="editsatuan" class="satuan invalid">
+            <select
+              name="satuan"
+              id="editsatuan"
+              class="satuan invalid validate"
+            >
               <option disabled selected value="">( Pcs, Ons, Kg... )</option>
               <option value="pcs" name="editFormSelect">Pcs</option>
               <option value="ons" name="editFormSelect">Ons</option>
@@ -142,6 +160,7 @@
               name="harga"
               id="editharga"
               max="99999999999999"
+              class="validate"
             />
           </div>
           <div id="input-edit-gambar" class="input-group">

@@ -136,24 +136,25 @@ const validateCheck = (data, type) => {
   }
 
   // harga
-  if (!data.harga || data.harga.trim() === "") {
+  const harga = parseInt(data.harga.replace(/\D/g, ""), 10);
+  if (!harga) {
     error.status = true;
     error.message = "Harga tidak boleh kosong";
 
     $(`#${type}Form #input-${type}-harga`).addClass("error");
     setError(`${type}`, error.message);
-  } else if (
-    data.harga < 1 ||
-    data.harga > 99999999999999 ||
-    isNaN(data.harga)
-  ) {
-    error.status = true;
-    error.message = "Harga tidak valid";
-
-    $(`#${type}Form #input-${type}-harga`).addClass("error");
-    setError(`${type}`, error.message);
   } else {
-    $(`#${type}Form #input-${type}-harga`).removeClass("error");
+    const bigHarga = BigInt(harga);
+
+    if (bigHarga < 1n || bigHarga > 99999999999999) {
+      error.status = true;
+      error.message = "Harga tidak valid";
+
+      $(`#${type}Form #input-${type}-harga`).addClass("error");
+      setError(`${type}`, error.message);
+    } else {
+      $(`#${type}Form #input-${type}-harga`).removeClass("error");
+    }
   }
 
   // satuan
@@ -209,6 +210,13 @@ const formValidation = (data, type) => {
   }
 };
 
+export const validationField = (field) => {
+  if ($(field).val() === "") {
+  } else {
+    $(field).parent().removeClass("error");
+  }
+};
+
 export {
   promptHandler,
   closePromptForce,
@@ -218,4 +226,5 @@ export {
   satuanSwitchers,
   realTimeHarga,
   formValidation,
+  validationField,
 };

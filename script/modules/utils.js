@@ -28,6 +28,7 @@ function pushNotification(message, type) {
       $notification.remove();
     }, 400);
   }, 2000);
+  console.log("notif accepted", message);
 }
 
 export { convertNumber, convertToBase64, pushNotification };
