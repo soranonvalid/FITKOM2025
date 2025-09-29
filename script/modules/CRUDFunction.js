@@ -1,6 +1,8 @@
 const getData = async (state) => {
   try {
-    await fetch("./backend/backend.php")
+    await fetch("./backend/backend.php", {
+      headers: { "Content-Type": "application/json" },
+    })
       .then((res) => res.json())
       .then((data) => {
         state(data);

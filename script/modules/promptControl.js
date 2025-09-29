@@ -210,7 +210,7 @@ const formValidation = (data, type) => {
   }
 };
 
-export const validationField = (field) => {
+const validationField = (field) => {
   if ($(field).val() === "") {
   } else {
     $(field).parent().removeClass("error");
