@@ -1,3 +1,5 @@
+**BACA README INI SEBAIKNYA DI GITHUB (https://github.com/soranonvalid/FITKOM2025)**
+
 # 📌 Panduan Instalasi & Menjalankan Project
 
 README ini bertujuan untuk membantu panitia jika mengalami kendala saat menjalankan project. Silakan ikuti langkah-langkah berikut dengan seksama. 😀
