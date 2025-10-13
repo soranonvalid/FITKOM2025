@@ -17,22 +17,36 @@ const resetForm = (selector) => {
 // open prompt
 const promptHandler = (type) => {
   $(document).on("click", `.${type}`, function () {
-    $(".prompt-frame").addClass("active");
-    $(`#${type}Prompt`).addClass("active");
-    clearError(type);
-    satuanSwitchers(type);
+    if ($(".prompt-frame").hasClass("closed")) {
+      return;
+    } else {
+      $(".prompt-frame").addClass("active");
+      $(`#${type}Prompt`).addClass("active");
+      clearError(type);
+      satuanSwitchers(type);
+    }
   });
 };
 
 // close prompt forcefully with reset
 const closePromptForce = () => {
-  $(".prompt-frame").removeClass("active");
-  $("#createPrompt").removeClass("active");
-  $("#editPrompt").removeClass("active");
-  resetForm(".createForm");
-  resetForm(".editForm");
-  imageSwitchers("create");
-  imageSwitchers("edit");
+  $(".prompt-frame").addClass("closed");
+  $("#createPrompt").addClass("closed");
+  $("#editPrompt").addClass("closed");
+  setTimeout(() => {
+    $(".prompt-frame").removeClass("active");
+    $("#createPrompt").removeClass("active");
+    $("#editPrompt").removeClass("active");
+
+    $(".prompt-frame").removeClass("closed");
+    $("#createPrompt").removeClass("closed");
+    $("#editPrompt").removeClass("closed");
+
+    resetForm(".createForm");
+    resetForm(".editForm");
+    imageSwitchers("create");
+    imageSwitchers("edit");
+  }, 200);
 };
 
 // Image input switcher

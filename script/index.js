@@ -73,27 +73,30 @@ export const render = () => {
     products().map(
       // template
       (product) => `
-     <tr>
+      <tr>
         <td class="action">
           <button class="default edit" data-id="${product?.id}">
             <i class="fa-solid fa-pen-to-square fa-lg"></i>
           </button>
         </td>
-        <td id="img">
-          <img
-            src="${product?.gambar}"
-            alt=""
-        />
-        </td>
         <td id="kode">${product?.kode}</td>
-        <td id="nama">${product?.nama}</td>
+        <td id="nama">
+          <div>
+            <img
+              src="${product?.gambar}"
+              alt="sayur"
+              class="img-render"
+            />
+            <p>${product?.nama}</p>
+          </div>
+        </td>
         <td id="satuan">${product?.satuan}</td>
         <td id="harga">${new Intl.NumberFormat("id-ID", {
           style: "currency",
           currency: "IDR",
         }).format(product?.harga)}</td>
       </tr>
-  `
+    `
     )
   );
 };

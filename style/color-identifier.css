@@ -1,0 +1,54 @@
+:root {
+  --color-default: #eeeeee;
+  --color-accent: #ededed;
+  --color-unique: #0c0c0c36;
+  --color-contrast: #000000;
+  --color-f-contrast: #e7e7e7;
+
+  /* element etc. */
+  --color-indentifier: #e0e0e0;
+  --color-inset: #d3d3d3;
+  --color-secondary: #ededed;
+
+  --color-indentifier-use: #deddda;
+  --color-inset-use: #d1d0cd;
+  --color-secondary-use: #ebeae7;
+
+  --color-border: rgba(0, 0, 0, 0.2);
+
+  --color-invalid: rgb(245, 64, 64);
+
+  --color-fade: rgb(235, 235, 235);
+
+  /* Button */
+  --b-primary: #2ec27e;
+  --b-primary-inset: #27a56b;
+  --b-primary-shadow: #35df9;
+
+  --b-primary-h: #26a269;
+  --b-primary-h-inset: #208a59;
+  --b-primary-h-shadow: #2cba79;
+}
+
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-default: #161616;
+    --color-accent: #151515;
+    --color-unique: #2a2a2a;
+    --color-contrast: #ffffff;
+
+    /* element etc. */
+    --color-indentifier: #212121;
+    --color-inset: #1f1f1f;
+    --color-secondary: #232323;
+
+    --color-indentifier-use: #0e0d0d;
+    --color-inset-use: #0d0c0c;
+    --color-secondary-use: #0f0e0e;
+
+    --color-border: rgba(135, 135, 135, 0.2);
+
+    --color-fade: rgb(29, 29, 29);
+  }
+}
