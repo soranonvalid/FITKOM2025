@@ -62,6 +62,9 @@ INSERT INTO `tb_smart_farm` (`gambar`, `kode`, `nama`, `satuan`, `harga`) VALUES
 ALTER TABLE `tb_smart_farm`
   AUTO_INCREMENT = 13;
 
+ALTER TABLE `tb_smart_farm`
+MODIFY COLUMN satuan ENUM('pcs', 'ons', 'kg', 'gros') NOT NULL DEFAULT 'pcs';
+
 -- Optional: Database `test`
 CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 

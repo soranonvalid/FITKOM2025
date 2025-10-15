@@ -75,11 +75,13 @@ export const render = () => {
       (product) => `
       <tr>
         <td class="action">
-          <button class="default edit" data-id="${product?.id}">
-            <i class="fa-solid fa-pen-to-square fa-lg"></i>
+          <button class="default edit no-bg" data-id="${product?.id}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil no-bg  "><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" class="no-bg"/><path d="m15 5 4 4" class="no-bg"/></svg>
           </button>
         </td>
-        <td id="kode">${product?.kode}</td>
+        <td id="kode">
+          <p class="no-bg">${product?.kode}</p>
+        </td>
         <td id="nama">
           <div>
             <img
@@ -87,14 +89,18 @@ export const render = () => {
               alt="sayur"
               class="img-render"
             />
-            <p>${product?.nama}</p>
+            <p class="no-bg">${product?.nama}</p>
           </div>
         </td>
-        <td id="satuan">${product?.satuan}</td>
-        <td id="harga">${new Intl.NumberFormat("id-ID", {
-          style: "currency",
-          currency: "IDR",
-        }).format(product?.harga)}</td>
+        <td id="satuan">
+          <p class="no-bg">${product?.satuan}</p>
+        </td>
+        <td id="harga">
+          <p class="no-bg">${new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+          }).format(product?.harga)}</p>
+        </td>
       </tr>
     `
     )
@@ -147,6 +153,8 @@ export const createDataHandler = async (data) => {
 
 export const editDataHandler = async (data) => {
   console.log("data edited: ", data);
+  const $btn = $(".simpan-edit-btn");
+  $btn.attr("disabled", "disabled");
   if (data.editgambar === "url") {
     try {
       await updateData(
@@ -190,6 +198,7 @@ export const editDataHandler = async (data) => {
     }
   }
   setId(null);
+  // $btn.removeAttr("disabled", false);
 };
 
 // create form

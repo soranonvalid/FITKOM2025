@@ -1,5 +1,10 @@
 <?php
 
+// $host = "sql12.freesqldatabase.com";
+// $user = "sql12802531";
+// $pass = "gnI1JbDhrm";
+// $db = "sql12802531";
+
 $host = "localhost";
 $user = "root";
 $pass = "";

@@ -38,15 +38,17 @@ const closePromptForce = () => {
     $("#createPrompt").removeClass("active");
     $("#editPrompt").removeClass("active");
 
-    $(".prompt-frame").removeClass("closed");
-    $("#createPrompt").removeClass("closed");
-    $("#editPrompt").removeClass("closed");
-
     resetForm(".createForm");
     resetForm(".editForm");
     imageSwitchers("create");
     imageSwitchers("edit");
   }, 200);
+
+  setTimeout(() => {
+    $(".prompt-frame").removeClass("closed");
+    $("#createPrompt").removeClass("closed");
+    $("#editPrompt").removeClass("closed");
+  }, 400);
 };
 
 // Image input switcher
@@ -126,11 +128,13 @@ const validateCheck = (data, type) => {
 
         $(`#${type}Form #input-${type}-gambar`).addClass("error");
         setError(type, error.message);
-      } else if (!/^https?:\/\/[^\s]+$/i.test(data.imageurl.trim())) {
-        if (
-          type === "edit" &&
-          data.imageurl.trim().includes("data:image/jpeg;base64,")
-        ) {
+      } else if (
+        !/^https?:\/\/[^\s]+$/i.test(data.imageurl.trim()) &&
+        !/^data:image\/(png|jpeg|jpg|gif|webp);base64,/i.test(
+          data.imageurl.trim()
+        )
+      ) {
+        if (type === "edit") {
           $(`#${type}Form #input-${type}-gambar`).removeClass("error");
         } else {
           error.status = true;

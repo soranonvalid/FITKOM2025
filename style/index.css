@@ -66,7 +66,7 @@ button:not(.default) {
     background: var(--b-primary);
     box-shadow: inset 7px 7px 14px var(--b-primary-inset),
       inset -7px -7px 14px var(--b-primary-shadow);
-    color: white;
+    color: white !important;
 
     &:hover {
       background: var(--b-primary-h);
@@ -90,9 +90,20 @@ button:not(.default) {
 .wrapper {
   margin: 1rem 0;
   overflow-x: auto;
-  overflow-y: scroll;
   max-height: 90dvh;
   border-radius: 3px;
+}
+
+table th {
+  /* Apply both top and bottom borders to the <th> */
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #edecec;
 }
 
 table {
@@ -101,10 +112,12 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid var(--color-border);
-  border: 1px solid var(--color-border);
+  border-top: none;
   animation: animationIn 0.2 ease-in-out;
   border-radius: 3px;
   overflow: hidden;
+  position: relative;
+  overflow-y: scroll;
 
   tbody tr {
     background-color: var(--color-default) !important;
@@ -114,8 +127,8 @@ table {
     }
   }
 
-  tbody tr.add {
-    animation: animationIn 0.2s ease-in-out;
+  tbody tr:nth-child(1) > td {
+    border-top: none !important;
   }
 
   th,
@@ -124,12 +137,16 @@ table {
     padding: 13px 10px;
   }
 
-  thead tr {
+  thead {
     background: var(--color-unique);
     font-size: 0.9rem;
     position: sticky;
     top: 0;
     font-weight: bold;
+  }
+
+  thead > tr {
+    border: 1px solid var(--color-border) !important;
   }
 
   td {
@@ -163,7 +180,7 @@ table {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 1rem;
+  padding: 1.5rem;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5) !important;
@@ -181,21 +198,22 @@ table {
 
   &.closed {
     animation: animationOut 0.2s ease-in-out;
+    animation-fill-mode: forwards;
   }
 
   .prompt {
     animation: fadeIn 0.2s ease-in-out;
-
     &.closed {
       animation: fadeOut 0.2s ease-in-out;
+      animation-fill-mode: forwards;
     }
   }
 }
 
 .prompt {
   background: var(--color-default);
-  padding: 1rem;
-  border-radius: 3px;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -216,8 +234,13 @@ table {
     padding: 0.5rem;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    width: 2rem;
+    height: 2rem;
     &:hover {
       background: var(--color-indentifier);
+    }
+    & > svg {
+      background-color: transparent !important;
     }
   }
 }
@@ -256,9 +279,9 @@ form {
 
   .input-group {
     display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex-direction: row;
+    gap: 8px;
+    align-items: start;
+    flex-direction: column;
     width: 100%;
 
     @media screen and (max-width: 350px) {
@@ -269,7 +292,7 @@ form {
 
     label {
       flex-shrink: 0;
-      font-size: 0.95rem;
+      font-size: 14px;
       width: 60px;
 
       @media screen and (max-width: 350px) {
@@ -331,6 +354,8 @@ form {
   .image-input-opt {
     display: flex;
     align-items: center;
+    gap: 10px;
+    width: 100%;
 
     select {
       flex-shrink: 1;
@@ -407,4 +432,25 @@ form {
       }
     }
   }
+}
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+  border-radius: 0.25rem;
+}
+
+.tambah-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background-color: transparent !important;
+  & * {
+    background-color: transparent !important;
+    color: white !important;
+  }
+}
+
+.no-bg {
+  background-color: transparent !important;
 }

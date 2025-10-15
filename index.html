@@ -32,7 +32,21 @@
       <!-- Create Prompt -->
       <div id="createPrompt" class="prompt">
         <button class="close default">
-          <i class="fa-solid fa-xmark"></i>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-x-icon lucide-x"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
         </button>
         <form id="createForm" class="createForm">
           <div id="input-create-kode" class="input-group">
@@ -101,7 +115,24 @@
                   accept="image/jpeg, image/png"
                 />
                 <label id="imageupload" for="createimageupload">
-                  <i class="fa-solid fa-upload"></i>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-hard-drive-upload-icon lucide-hard-drive-upload"
+                  >
+                    <path d="m16 6-4-4-4 4" />
+                    <path d="M12 2v8" />
+                    <rect width="20" height="8" x="2" y="14" rx="2" />
+                    <path d="M6 18h.01" />
+                    <path d="M10 18h.01" />
+                  </svg>
                   Upload
                 </label>
               </div>
@@ -117,7 +148,21 @@
       <!-- Edit Prompt -->
       <div id="editPrompt" class="prompt">
         <button class="close default">
-          <i class="fa-solid fa-xmark"></i>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-x-icon lucide-x"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
         </button>
 
         <form class="editForm">
@@ -187,7 +232,24 @@
                   accept="image/jpeg, image/png"
                 />
                 <label id="imageupload" for="editimageupload">
-                  <i class="fa-solid fa-upload"></i>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-hard-drive-upload-icon lucide-hard-drive-upload"
+                  >
+                    <path d="m16 6-4-4-4 4" />
+                    <path d="M12 2v8" />
+                    <rect width="20" height="8" x="2" y="14" rx="2" />
+                    <path d="M6 18h.01" />
+                    <path d="M10 18h.01" />
+                  </svg>
                   Upload
                 </label>
               </div>
@@ -196,7 +258,9 @@
           <p class="errorNote" id="editErrorNote"></p>
           <div class="button-group">
             <button class="warning" id="delete" type="button">Delete</button>
-            <button class="primary" type="submit">Simpan</button>
+            <button class="primary" type="submit" class="simpan-edit-btn">
+              Simpan
+            </button>
           </div>
         </form>
       </div>
@@ -210,8 +274,24 @@
       <header>
         <h1>Product List</h1>
         <button id="create" class="primary create">
-          <i class="fa-solid fa-plus"></i>
-          Tambah
+          <div class="tambah-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-plus-icon lucide-plus"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+            <span>Tambah</span>
+          </div>
         </button>
       </header>
       <div class="wrapper">
@@ -232,7 +312,77 @@
               <th>Harga</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr>
+              <td class="action">
+                <button
+                  class="default skeleton"
+                  style="width: 16px; height: 16px"
+                ></button>
+              </td>
+              <td id="kode">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
+              <td id="nama">
+                <div>
+                  <div style="width: 30px; height: 30px" class="skeleton"></div>
+                  <p style="width: 30%; height: 14px" class="skeleton"></p>
+                </div>
+              </td>
+              <td id="satuan">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
+              <td id="harga">
+                <p style="width: 30%; height: 14px" class="skeleton"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="action">
+                <button
+                  class="default skeleton"
+                  style="width: 16px; height: 16px"
+                ></button>
+              </td>
+              <td id="kode">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
+              <td id="nama">
+                <div>
+                  <div style="width: 30px; height: 30px" class="skeleton"></div>
+                  <p style="width: 10%; height: 14px" class="skeleton"></p>
+                </div>
+              </td>
+              <td id="satuan">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
+              <td id="harga">
+                <p style="width: 20%; height: 14px" class="skeleton"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="action">
+                <button
+                  class="default skeleton"
+                  style="width: 16px; height: 16px"
+                ></button>
+              </td>
+              <td id="kode">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
+              <td id="nama">
+                <div>
+                  <div style="width: 30px; height: 30px" class="skeleton"></div>
+                  <p style="width: 20%; height: 14px" class="skeleton"></p>
+                </div>
+              </td>
+              <td id="satuan">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
+              <td id="harga">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </main>
