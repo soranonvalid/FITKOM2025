@@ -30,6 +30,7 @@
   --b-primary-h: #26a269;
   --b-primary-h-inset: #208a59;
   --b-primary-h-shadow: #2cba79;
+  --b-hovered: rgba(0, 0, 0, 0.1);
 }
 
 /* dark mode */
@@ -52,5 +53,6 @@
     --color-border: rgba(135, 135, 135, 0.2);
 
     --color-fade: rgb(29, 29, 29);
+    --b-hovered: rgba(255, 255, 255, 0.1);
   }
 }
