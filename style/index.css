@@ -90,7 +90,7 @@ button:not(.default) {
 .wrapper {
   margin: 1rem 0;
   overflow-x: auto;
-  max-height: 90dvh;
+  max-height: 80dvh;
   border-radius: 3px;
 }
 
@@ -453,4 +453,53 @@ form {
 
 .no-bg {
   background-color: transparent !important;
+}
+
+.filter-container {
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  justify-content: space-between;
+  input {
+    font-family: "Nunito", sans-serif;
+    padding: 5px 10px;
+    border: solid 1px var(--color-border);
+    border-radius: 3px;
+    max-width: 300px;
+
+    &:not(.ignore) {
+      width: 100%;
+      flex: 1;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-unique);
+    }
+
+    &[disabled] {
+      color: gray;
+    }
+  }
+  .filter-produk {
+    display: flex;
+  }
+}
+
+#label-toggle {
+  height: 30px;
+  width: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 0.5rem;
+  transition: all ease-in-out 100ms;
+  svg {
+    background-color: transparent !important;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+.active-toggle {
+  background-color: var(--b-hovered) !important;
 }

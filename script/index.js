@@ -25,7 +25,7 @@ const state = (initial) => {
   const get = () => value;
   const set = (newValue) => {
     value = newValue;
-    render();
+    render(searchKeyword());
   };
   return [get, set];
 };
@@ -57,6 +57,39 @@ $(function () {
   realTimeHarga("edit");
 });
 
+// filter radio
+let currentIndex = -1;
+$("#label-toggle").on("click", () => {
+  const radios = $(".filter-radio");
+  if (radios.length === 0) return;
+
+  currentIndex++;
+
+  if (currentIndex >= radios.length) {
+    radios.prop("checked", false);
+    $("#label-toggle").addClass("active-toggle");
+  } else {
+    radios.prop("checked", false);
+    radios.eq(currentIndex).prop("checked", true);
+    $("#label-toggle").addClass("active-toggle");
+  }
+
+  if (currentIndex == 1) {
+    $("#label-toggle").html(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-up-icon lucide-arrow-down-up"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>`
+    );
+  } else {
+    $("#label-toggle").html(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-down-icon lucide-arrow-up-down"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>`
+    );
+  }
+
+  if (currentIndex >= radios.length) {
+    currentIndex = -1;
+    $("#label-toggle").removeClass("active-toggle");
+  }
+});
+
 // quick validate
 $(".validate").on("input change", function () {
   const type = $(this).hasClass("create")
@@ -67,12 +100,28 @@ $(".validate").on("input change", function () {
   validationField(this);
 });
 
+$(".pencarian").on("input", (e) => {
+  const keyword = e.target.value;
+  setSearchKeyword(keyword);
+  render(keyword);
+});
+
 // render function
-export const render = () => {
+export const render = (keyword = "") => {
+  const search = keyword.toLowerCase().trim();
+
   $("tbody").html(
-    products().map(
-      // template
-      (product) => `
+    products()
+      .filter(
+        (product) =>
+          product.nama.toLowerCase().includes(search) ||
+          product.kode.toLowerCase().includes(search) ||
+          product.harga.toLowerCase().includes(search) ||
+          product.satuan.toLowerCase().includes(search)
+      )
+      .map(
+        // template
+        (product) => `
       <tr>
         <td class="action">
           <button class="default edit no-bg" data-id="${product?.id}">
@@ -103,12 +152,13 @@ export const render = () => {
         </td>
       </tr>
     `
-    )
+      )
   );
 };
 
 const [id, setId] = state(null);
 const [products, setProducts] = state([]);
+const [searchKeyword, setSearchKeyword] = state("");
 
 // Handling
 export const createDataHandler = async (data) => {
