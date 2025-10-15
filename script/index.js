@@ -19,6 +19,12 @@ import {
   updateData,
 } from "./modules/CRUDFunction.js";
 
+// TODO:
+// search [X]
+// filter
+// property
+// finishing
+
 // port useState
 const state = (initial) => {
   let value = typeof initial === "function" ? initial() : initial;
@@ -59,7 +65,7 @@ $(function () {
 
 // filter radio
 let currentIndex = -1;
-$("#label-toggle").on("click", () => {
+$("#filter-harga").on("click", () => {
   const radios = $(".filter-radio");
   if (radios.length === 0) return;
 
@@ -78,9 +84,13 @@ $("#label-toggle").on("click", () => {
     $("#label-toggle").html(
       `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-up-icon lucide-arrow-down-up"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>`
     );
-  } else {
+  } else if (currentIndex == 0) {
     $("#label-toggle").html(
       `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-down-icon lucide-arrow-up-down"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>`
+    );
+  } else {
+    $("#label-toggle").html(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-down-icon lucide-arrow-up-down"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>`
     );
   }
 

@@ -273,6 +273,31 @@
     <main>
       <header>
         <h1>Product List</h1>
+        <div class="filter-container">
+          <div class="filter-produk">
+            <input
+              type="radio"
+              name="filter"
+              id="filter1"
+              class="filter-radio"
+              style="display: none"
+            />
+            <input
+              type="radio"
+              name="filter"
+              id="filter2"
+              class="filter-radio"
+              style="display: none"
+            />
+          </div>
+          <input
+            placeholder="Pencarian produk..."
+            type="text"
+            name="pencarian"
+            id="pencarian"
+            class="pencarian"
+          />
+        </div>
         <button id="create" class="primary create">
           <div class="tambah-btn">
             <svg
@@ -294,32 +319,7 @@
           </div>
         </button>
       </header>
-      <div class="filter-container">
-        <div class="filter-produk">
-          <input
-            type="radio"
-            name="filter"
-            id="filter1"
-            class="filter-radio"
-            style="display: none"
-          />
-          <input
-            type="radio"
-            name="filter"
-            id="filter2"
-            class="filter-radio"
-            style="display: none"
-          />
-        </div>
-        <input
-          placeholder="Pencarian produk..."
-          type="text"
-          name="pencarian"
-          id="pencarian"
-          class="pencarian"
-        />
-      </div>
-      <div class="wrapper">
+      <div class="table-wrapper">
         <table style="width: 100%">
           <colgroup>
             <col span="1" style="width: 2%" />
@@ -334,27 +334,29 @@
               <th>Kode</th>
               <th>Nama</th>
               <th>Satuan</th>
-              <th style="display: flex; align-items: center; gap: 0.5rem">
-                <span>Harga</span>
-                <label for="filter" id="label-toggle"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-arrow-up-down-icon lucide-arrow-up-down"
-                  >
-                    <path d="m21 16-4 4-4-4" />
-                    <path d="M17 20V4" />
-                    <path d="m3 8 4-4 4 4" />
-                    <path d="M7 4v16" />
-                  </svg>
-                </label>
+              <th>
+                <div id="filter-harga" class="wrapper">
+                  <span class="off">Harga</span>
+                  <label for="filter" id="label-toggle"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1"
+                      stroked-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-arrow-up-down-icon lucide-arrow-up-down"
+                    >
+                      <path d="m21 16-4 4-4-4" />
+                      <path d="M17 20V4" />
+                      <path d="m3 8 4-4 4 4" />
+                      <path d="M7 4v16" />
+                    </svg>
+                  </label>
+                </div>
               </th>
             </tr>
           </thead>

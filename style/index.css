@@ -8,6 +8,13 @@
   list-style: none;
 }
 
+.off {
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10+ */
+}
+
 html {
   scroll-behavior: smooth;
   font-family: "Nunito", sans-serif;
@@ -33,9 +40,11 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
 
   h1 {
     font-size: 1.3rem;
+    text-wrap: nowrap;
   }
 }
 
@@ -87,7 +96,7 @@ button:not(.default) {
   }
 }
 
-.wrapper {
+.table-wrapper {
   margin: 1rem 0;
   overflow-x: auto;
   max-height: 80dvh;
@@ -98,6 +107,22 @@ table th {
   /* Apply both top and bottom borders to the <th> */
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+  padding: 7px 10px !important;
+
+  .wrapper {
+    background-color: transparent !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    > * {
+      background-color: transparent !important;
+    }
+
+    > span {
+      cursor: pointer;
+    }
+  }
 }
 
 table thead th {
@@ -458,14 +483,13 @@ form {
 .filter-container {
   width: 100%;
   display: flex;
-  margin-top: 1rem;
-  justify-content: space-between;
+  height: 100%;
   input {
     font-family: "Nunito", sans-serif;
     padding: 5px 10px;
     border: solid 1px var(--color-border);
     border-radius: 3px;
-    max-width: 300px;
+    height: 34px;
 
     &:not(.ignore) {
       width: 100%;
@@ -493,13 +517,8 @@ form {
   place-items: center;
   border-radius: 0.5rem;
   transition: all ease-in-out 100ms;
+  cursor: pointer;
   svg {
     background-color: transparent !important;
   }
-  &:hover {
-    cursor: pointer;
-  }
-}
-.active-toggle {
-  background-color: var(--b-hovered) !important;
 }
