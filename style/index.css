@@ -103,7 +103,7 @@ table th {
 table thead th {
   position: sticky;
   top: 0;
-  background-color: #edecec;
+  background-color: var(--color-fade);
 }
 
 table {
