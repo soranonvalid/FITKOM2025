@@ -31,7 +31,7 @@ const state = (initial) => {
   const get = () => value;
   const set = (newValue) => {
     value = newValue;
-    render(searchKeyword(), harga());
+    render(searchKeyword(), harga(), 10, indexPage());
   };
   return [get, set];
 };
@@ -120,7 +120,12 @@ $(".pencarian").on("input", (e) => {
 });
 
 // render function
-export const render = (keyword = "", filter = harga()) => {
+export const render = (
+  keyword = "",
+  filter = harga(),
+  max_index = 10,
+  page = indexPage()
+) => {
   const search = keyword.toLowerCase().trim();
 
   $("tbody").html(
@@ -132,47 +137,44 @@ export const render = (keyword = "", filter = harga()) => {
           product.harga.toLowerCase().includes(search) ||
           product.satuan.toLowerCase().includes(search)
       )
-      .sort((a, b) =>
-        filter === "highest"
-          ? b.harga - a.harga
-          : filter === "lowest"
-          ? a.harga - b.harga
-          : filter === null
-          ? null
-          : null
-      )
+      .sort((a, b) => {
+        if (filter === "highest") return b.harga - a.harga;
+        else if (filter === "lowest") return a.harga - b.harga;
+        else return 0;
+      })
+      .slice(0 + 10 * (page - 1), max_index + 10 * (page - 1))
       .map(
-        // template
-        (product) => `
-      <tr>
-        <td class="action">
-          <button class="default edit no-bg" data-id="${product?.id}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil no-bg  "><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" class="no-bg"/><path d="m15 5 4 4" class="no-bg"/></svg>
-          </button>
-        </td>
-        <td id="kode">
-          <p class="no-bg">${product?.kode}</p>
-        </td>
-        <td id="nama">
-          <div>
-            <img
-              src="${product?.gambar}"
-              alt="sayur"
-              class="img-render"
-            />
-            <p class="no-bg">${product?.nama}</p>
-          </div>
-        </td>
-        <td id="satuan">
-          <p class="no-bg">${product?.satuan}</p>
-        </td>
-        <td id="harga">
-          <p class="no-bg">${new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
-          }).format(product?.harga)}</p>
-        </td>
-      </tr>
+        (product) => `   
+        <tr>
+            <td class="action">
+            <button class="default edit no-bg" data-id="${product?.id}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil no-bg  "><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" class="no-bg"/><path d="m15 5 4 4" class="no-bg"/></svg>
+            </button>
+            </td>
+            <td id="kode">
+                <p class="no-bg">${product?.kode}</p>
+            </td>
+            <td id="nama">
+                <div>
+                    <img
+                    src="${product?.gambar}"
+                    alt="sayur"
+                    class="img-render"
+                    />
+                    <p class="no-bg">${product?.nama}</p>
+                </div>
+            </td>
+            <td id="satuan">
+                <p class="no-bg">${product?.satuan}</p>
+            </td>
+            <td id="harga">
+                <p class="no-bg">${new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(product?.harga)}
+                </p>
+            </td>
+        </tr>
     `
       )
   );
@@ -182,6 +184,7 @@ const [id, setId] = state(null);
 const [products, setProducts] = state([]);
 const [searchKeyword, setSearchKeyword] = state("");
 const [harga, setHarga] = state(null);
+const [indexPage, setIndexPage] = state(1);
 
 // Handling
 export const createDataHandler = async (data) => {
@@ -327,4 +330,36 @@ $(document).on("click", ".edit", function () {
   $("#editPrompt").addClass("active");
 });
 
-getData(setProducts);
+const pageLimit = (length, max) => {
+  const pageLeft = length % max;
+  if (pageLeft !== 0) {
+    return (length - pageLeft) / max + 1;
+  }
+  return length / max;
+};
+
+$(".next-btn").on("click", () => {
+  if (indexPage() >= pageLimit(products().length, 10)) {
+    return;
+  }
+  setIndexPage(indexPage() + 1);
+});
+
+$(".prev-btn").on("click", () => {
+  if (indexPage() <= 1) {
+    return;
+  }
+  setIndexPage(indexPage() - 1);
+});
+// Inisialisasi data dan pagination setelah data didapat
+getData(setProducts).then(() => {
+  for (let i = 0; i < pageLimit(products().length, 10); i++) {
+    $(".pagination-lists").append(
+      $("<p>")
+        .text(i + 1)
+        .on("click", () => {
+          setIndexPage(i + 1);
+        })
+    );
+  }
+});
