@@ -31,7 +31,7 @@ const state = (initial) => {
   const get = () => value;
   const set = (newValue) => {
     value = newValue;
-    render(searchKeyword());
+    render(searchKeyword(), harga());
   };
   return [get, set];
 };
@@ -80,18 +80,21 @@ $("#filter-harga").on("click", () => {
     $("#label-toggle").addClass("active-toggle");
   }
 
-  if (currentIndex == 1) {
-    $("#label-toggle").html(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-up-icon lucide-arrow-down-up"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>`
-    );
-  } else if (currentIndex == 0) {
+  if (currentIndex == 0) {
     $("#label-toggle").html(
       `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-down-icon lucide-arrow-up-down"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>`
     );
+    setHarga("highest");
+  } else if (currentIndex == 1) {
+    $("#label-toggle").html(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-up-icon lucide-arrow-down-up"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>`
+    );
+    setHarga("lowest");
   } else {
     $("#label-toggle").html(
       `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-down-icon lucide-arrow-up-down"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>`
     );
+    setHarga(null);
   }
 
   if (currentIndex >= radios.length) {
@@ -117,7 +120,7 @@ $(".pencarian").on("input", (e) => {
 });
 
 // render function
-export const render = (keyword = "") => {
+export const render = (keyword = "", filter = harga()) => {
   const search = keyword.toLowerCase().trim();
 
   $("tbody").html(
@@ -128,6 +131,15 @@ export const render = (keyword = "") => {
           product.kode.toLowerCase().includes(search) ||
           product.harga.toLowerCase().includes(search) ||
           product.satuan.toLowerCase().includes(search)
+      )
+      .sort((a, b) =>
+        filter === "highest"
+          ? b.harga - a.harga
+          : filter === "lowest"
+          ? a.harga - b.harga
+          : filter === null
+          ? null
+          : null
       )
       .map(
         // template
@@ -169,6 +181,7 @@ export const render = (keyword = "") => {
 const [id, setId] = state(null);
 const [products, setProducts] = state([]);
 const [searchKeyword, setSearchKeyword] = state("");
+const [harga, setHarga] = state(null);
 
 // Handling
 export const createDataHandler = async (data) => {
