@@ -40,11 +40,12 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
 
   h1 {
     font-size: 1.3rem;
     text-wrap: nowrap;
+    margin-right: 20px;
   }
 }
 
@@ -484,25 +485,61 @@ form {
   width: 100%;
   display: flex;
   height: 100%;
-  input {
-    font-family: "Nunito", sans-serif;
-    padding: 5px 10px;
-    border: solid 1px var(--color-border);
-    border-radius: 3px;
-    height: 34px;
+  justify-content: end;
 
-    &:not(.ignore) {
+  .input-wrapper {
+    display: flex;
+    position: relative;
+    flex: 1;
+    max-width: 34px;
+    transition: all 0.15s ease-in;
+    overflow: hidden;
+
+    input {
+      opacity: 0;
+    }
+
+    &:focus-within {
+      max-width: 100%;
+
+      input {
+        opacity: 1;
+        cursor: text;
+      }
+
+      svg {
+        left: -10%;
+      }
+    }
+
+    svg {
+      position: absolute;
+      background-color: transparent !important;
+      transition: all 0.15s ease-in;
+
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20%;
+
+      z-index: 1;
+    }
+
+    input {
+      font-family: "Nunito", sans-serif;
+      padding: 5px 10px;
+      border: solid 1px var(--color-border);
+      border-radius: 3px;
+      height: 34px;
       width: 100%;
-      flex: 1;
-    }
+      transition: all 0.15s ease-in;
+      align-self: flex-end;
+      z-index: 2;
+      cursor: pointer;
 
-    &:focus {
-      outline: none;
-      border-color: var(--color-unique);
-    }
-
-    &[disabled] {
-      color: gray;
+      &:focus {
+        outline: none;
+        border-color: var(--color-unique);
+      }
     }
   }
   .filter-produk {
