@@ -99,7 +99,7 @@ button:not(.default) {
 .table-wrapper {
   margin: 1rem 0;
   overflow-x: auto;
-  max-height: 80dvh;
+  max-height: 85dvh;
   border-radius: 3px;
 }
 
