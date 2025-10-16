@@ -1,0 +1,73 @@
+export const pageLimit = (length, max) => {
+  return Math.ceil(length / max);
+};
+
+export const filterProducts = (products, harga, keyword = "") => {
+  const search = keyword.toLowerCase().trim();
+  return products
+    .filter(
+      (product) =>
+        product.nama.toLowerCase().includes(search) ||
+        product.kode.toLowerCase().includes(search) ||
+        product.harga.toString().includes(search) ||
+        product.satuan.toLowerCase().includes(search)
+    )
+    .sort((a, b) => {
+      if (harga === "highest") return b.harga - a.harga;
+      if (harga === "lowest") return a.harga - b.harga;
+      return 0;
+    });
+};
+
+export const renderPaginationButton = (filteredData, setIndexPage) => {
+  const totalPages = pageLimit(filteredData.length, 10);
+  const pagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  $(".pagination-lists").empty();
+
+  pagesArray.forEach((pageNumber) => {
+    $(".pagination-lists").append(
+      $("<p>")
+        .text(pageNumber)
+        .on("click", () => {
+          setIndexPage(pageNumber);
+        })
+    );
+  });
+};
+
+export const render = (array = [], max_index = 10, page = 1) => {
+  $("tbody").html(
+    array.slice((page - 1) * max_index, page * max_index).map(
+      (product) => `   
+        <tr>
+            <td class="action">
+            <button class="default edit no-bg" data-id="${product?.id}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil no-bg  "><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" class="no-bg"/><path d="m15 5 4 4" class="no-bg"/></svg>
+            </button>
+            </td>
+            <td id="kode">
+                <p class="no-bg">${product?.kode}</p>
+            </td>
+            <td id="nama">
+                <div>
+                    <img src="${
+                      product?.gambar
+                    }" alt="sayur" class="img-render" />
+                    <p class="no-bg">${product?.nama}</p>
+                </div>
+            </td>
+            <td id="satuan">
+                <p class="no-bg">${product?.satuan}</p>
+            </td>
+            <td id="harga">
+                <p class="no-bg">${new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(product?.harga)}</p>
+            </td>
+        </tr>
+      `
+    )
+  );
+};
