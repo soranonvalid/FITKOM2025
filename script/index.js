@@ -25,12 +25,6 @@ import {
   pageLimit,
 } from "./modules/render.js";
 
-// TODO:
-// search [X]
-// filter
-// property
-// finishing
-
 // port useState
 const state = (initial) => {
   let value = typeof initial === "function" ? initial() : initial;
@@ -97,7 +91,7 @@ $("#filter-harga").on("click", () => {
   setFilteredProducts(filtered);
   setIndexPage(1);
   render(filtered, 10, 1);
-  renderPaginationButton(filtered, setIndexPage);
+  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
 
 // quick validate
@@ -117,7 +111,7 @@ $(".pencarian").on("input", (e) => {
   setFilteredProducts(filtered);
   setIndexPage(1);
   render(filtered, 10, 1);
-  renderPaginationButton(filtered, setIndexPage);
+  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
 
 // render function
@@ -217,7 +211,6 @@ export const editDataHandler = async (data) => {
     }
   }
   setId(null);
-  // $btn.removeAttr("disabled", false);
 };
 
 // create form
@@ -277,14 +270,20 @@ $(".next-btn").on("click", () => {
   if (indexPage() >= pageLimit(filteredProducts().length, 10)) {
     return;
   }
+  const filtered = filterProducts(products(), harga(), searchKeyword());
+
   setIndexPage(indexPage() + 1);
+  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
 
 $(".prev-btn").on("click", () => {
   if (indexPage() <= 1) {
     return;
   }
+  const filtered = filterProducts(products(), harga(), searchKeyword());
+
   setIndexPage(indexPage() - 1);
+  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
 
 getData((data) => {
@@ -292,5 +291,5 @@ getData((data) => {
   const filtered = filterProducts(data, harga(), searchKeyword());
   setFilteredProducts(filtered);
   render(filtered, 10, 1);
-  renderPaginationButton(filtered, setIndexPage);
+  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });

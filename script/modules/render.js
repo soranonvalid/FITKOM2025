@@ -1,4 +1,4 @@
-export const pageLimit = (length, max) => {
+export const pageLimit = (length, max = 10) => {
   return Math.ceil(length / max);
 };
 
@@ -19,21 +19,109 @@ export const filterProducts = (products, harga, keyword = "") => {
     });
 };
 
-export const renderPaginationButton = (filteredData, setIndexPage) => {
-  const totalPages = pageLimit(filteredData.length, 10);
+export const renderPaginationButton = (
+  filteredData,
+  setIndexPage,
+  indexPage = 1,
+  max = 10
+) => {
+  const totalPages = pageLimit(filteredData.length, max);
   const pagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const renderedArray = {
+    prev: indexPage === 1 ? null : indexPage - 1,
+    backward:
+      indexPage === pagesArray.at(-1)
+        ? indexPage - 2 < 0
+          ? null
+          : indexPage - 2
+        : null,
+    next: indexPage === pagesArray.at(-1) ? null : indexPage + 1,
+    forward:
+      indexPage === 1 ? (pagesArray.length >= 3 ? indexPage + 2 : null) : null,
+  };
 
   $(".pagination-lists").empty();
+  console.log(indexPage, totalPages, filteredData, pagesArray, renderedArray);
 
-  pagesArray.forEach((pageNumber) => {
-    $(".pagination-lists").append(
-      $("<p>")
-        .text(pageNumber)
+  if (totalPages > 0) {
+    if (renderedArray.backward !== null) {
+      $(`<p data-id="${renderedArray.backward}">${renderedArray.backward}</p>`)
+        .appendTo(".pagination-lists")
         .on("click", () => {
-          setIndexPage(pageNumber);
-        })
+          setIndexPage(renderedArray.backward);
+          renderPaginationButton(
+            filteredData,
+            setIndexPage,
+            indexPage - 2,
+            max
+          );
+        });
+    }
+    if (renderedArray.prev !== null) {
+      $(`<p data-id="${renderedArray.prev}">${renderedArray.prev}</p>`)
+        .appendTo(".pagination-lists")
+        .on("click", () => {
+          setIndexPage(renderedArray.prev);
+          renderPaginationButton(
+            filteredData,
+            setIndexPage,
+            indexPage - 1,
+            max
+          );
+        });
+    }
+    // selected pages
+    $(".pagination-lists").append(
+      `<p class="active" data-id="${indexPage}">${indexPage}</p>`
     );
-  });
+    //
+    if (renderedArray.next !== null) {
+      $(`<p data-id="${renderedArray.next}">${renderedArray.next}</p>`)
+        .appendTo(".pagination-lists")
+        .on("click", () => {
+          setIndexPage(renderedArray.next);
+          renderPaginationButton(
+            filteredData,
+            setIndexPage,
+            indexPage + 1,
+            max
+          );
+        });
+    }
+    if (renderedArray.forward != null) {
+      $(`<p data-id="${renderedArray.forward}">${renderedArray.forward}</p>`)
+        .appendTo(".pagination-lists")
+        .on("click", () => {
+          setIndexPage(renderedArray.forward);
+          renderPaginationButton(
+            filteredData,
+            setIndexPage,
+            indexPage + 2,
+            max
+          );
+        });
+    }
+    if (
+      indexPage < pagesArray.at(-2) &&
+      pagesArray.at(-2) !== renderedArray.next &&
+      pagesArray.at(-2) !== renderedArray.forward
+    ) {
+      $(".pagination-lists").append("<p>...</p>");
+      $(`<p data-id="${pagesArray.at(-1)}">${pagesArray.at(-1)}</p>`)
+        .appendTo(".pagination-lists")
+        .on("click", () => {
+          setIndexPage(pagesArray.at(-1));
+          renderPaginationButton(
+            filteredData,
+            setIndexPage,
+            pagesArray.at(-1),
+            max
+          );
+        });
+    }
+  } else {
+    $(".pagination-lists").append(`<p class="active">1</p>`);
+  }
 };
 
 export const render = (array = [], max_index = 10, page = 1) => {

@@ -620,3 +620,46 @@ form {
     background-color: transparent !important;
   }
 }
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .index_buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    i {
+      cursor: pointer;
+    }
+
+    .pagination-lists {
+      display: flex;
+      gap: 1rem;
+
+      p {
+        cursor: pointer;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        padding: 2px;
+        color: rgba(255, 255, 255, 0.5);
+        user-select: none;
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE 10+ */
+
+        &.active {
+          font-weight: bold;
+          background-color: var(--color-unique);
+          color: white;
+        }
+      }
+    }
+  }
+}
