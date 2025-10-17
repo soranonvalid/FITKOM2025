@@ -152,6 +152,7 @@ export const renderPaginationButton = (
 };
 
 export const render = (array = [], max_index = 10, page = 1) => {
+  console.log("render", array.length);
   array.length <= 0
     ? $("tbody").html(
         "<tr class='invalid'><td colspan='5'><p>data tidak ditemukan...</p></td></tr>"

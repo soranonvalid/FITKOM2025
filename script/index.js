@@ -31,7 +31,7 @@ const state = (initial) => {
   const get = () => value;
   const set = (newValue) => {
     value = newValue;
-    render(filteredProducts(), 10, indexPage());
+    render(products(), 10, indexPage());
   };
   return [get, set];
 };
