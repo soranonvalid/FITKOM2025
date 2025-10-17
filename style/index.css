@@ -632,7 +632,7 @@ footer {
     gap: 1rem;
 
     i {
-      cursor: pointer;
+      cursor: f;
     }
 
     .pagination-lists {
@@ -655,6 +655,7 @@ footer {
         -ms-user-select: none; /* IE 10+ */
 
         &.active {
+          animation: fadeIn 0.2s ease-in-out;
           font-weight: bold;
           background-color: var(--color-unique);
           color: white;

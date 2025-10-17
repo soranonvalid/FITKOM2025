@@ -41,9 +41,9 @@ export const renderPaginationButton = (
   };
 
   $(".pagination-lists").empty();
-  console.log(indexPage, totalPages, filteredData, pagesArray, renderedArray);
 
   if (totalPages > 0) {
+    // backward
     if (renderedArray.backward !== null) {
       $(`<p data-id="${renderedArray.backward}">${renderedArray.backward}</p>`)
         .appendTo(".pagination-lists")
@@ -57,6 +57,7 @@ export const renderPaginationButton = (
           );
         });
     }
+    // previous
     if (renderedArray.prev !== null) {
       $(`<p data-id="${renderedArray.prev}">${renderedArray.prev}</p>`)
         .appendTo(".pagination-lists")
@@ -74,7 +75,8 @@ export const renderPaginationButton = (
     $(".pagination-lists").append(
       `<p class="active" data-id="${indexPage}">${indexPage}</p>`
     );
-    //
+
+    // next
     if (renderedArray.next !== null) {
       $(`<p data-id="${renderedArray.next}">${renderedArray.next}</p>`)
         .appendTo(".pagination-lists")
@@ -88,6 +90,7 @@ export const renderPaginationButton = (
           );
         });
     }
+    // forward
     if (renderedArray.forward != null) {
       $(`<p data-id="${renderedArray.forward}">${renderedArray.forward}</p>`)
         .appendTo(".pagination-lists")
@@ -101,10 +104,11 @@ export const renderPaginationButton = (
           );
         });
     }
+    // skip to last
     if (
-      indexPage < pagesArray.at(-2) &&
-      pagesArray.at(-2) !== renderedArray.next &&
-      pagesArray.at(-2) !== renderedArray.forward
+      indexPage < pagesArray.at(-1) &&
+      pagesArray.at(-1) !== renderedArray.next &&
+      pagesArray.at(-1) !== renderedArray.forward
     ) {
       $(".pagination-lists").append("<p>...</p>");
       $(`<p data-id="${pagesArray.at(-1)}">${pagesArray.at(-1)}</p>`)
@@ -120,6 +124,7 @@ export const renderPaginationButton = (
         });
     }
   } else {
+    // empty
     $(".pagination-lists").append(`<p class="active">1</p>`);
   }
 };
