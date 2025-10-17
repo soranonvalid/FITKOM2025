@@ -2,22 +2,44 @@ export const pageLimit = (length, max = 10) => {
   return Math.ceil(length / max);
 };
 
-export const filterProducts = (products, harga, keyword = "") => {
+export function filterProducts(products, keyword = "", type, suffix) {
   const search = keyword.toLowerCase().trim();
-  return products
-    .filter(
-      (product) =>
-        product.nama.toLowerCase().includes(search) ||
-        product.kode.toLowerCase().includes(search) ||
-        product.harga.toString().includes(search) ||
-        product.satuan.toLowerCase().includes(search)
-    )
-    .sort((a, b) => {
-      if (harga === "highest") return b.harga - a.harga;
-      if (harga === "lowest") return a.harga - b.harga;
+  const searched = products.filter(
+    (product) =>
+      product.nama.toLowerCase().includes(search) ||
+      product.kode.toLowerCase().includes(search) ||
+      product.harga.toString().includes(search) ||
+      product.satuan.toLowerCase().includes(search)
+  );
+
+  if (type === "harga") {
+    return searched.sort((a, b) => {
+      if (suffix === "highest") return b.harga - a.harga;
+      if (suffix === "lowest") return a.harga - b.harga;
       return 0;
     });
-};
+  } else if (type === "nama") {
+    return searched.sort((a, b) => {
+      if (suffix === "highest") return a.nama.localeCompare(b.nama);
+      if (suffix === "lowest") return b.nama.localeCompare(a.nama);
+      return 0;
+    });
+  } else if (type === "kode") {
+    return searched.sort((a, b) => {
+      if (suffix === "highest") return a.kode.localeCompare(b.kode);
+      if (suffix === "lowest") return b.kode.localeCompare(a.kode);
+      return 0;
+    });
+  } else if (type === "satuan") {
+    return searched.sort((a, b) => {
+      if (suffix === "highest") return a.satuan.localeCompare(b.satuan);
+      if (suffix === "lowest") return b.satuan.localeCompare(a.satuan);
+      return 0;
+    });
+  } else {
+    return searched;
+  }
+}
 
 export const renderPaginationButton = (
   filteredData,
@@ -130,9 +152,13 @@ export const renderPaginationButton = (
 };
 
 export const render = (array = [], max_index = 10, page = 1) => {
-  $("tbody").html(
-    array.slice((page - 1) * max_index, page * max_index).map(
-      (product) => `   
+  array.length <= 0
+    ? $("tbody").html(
+        "<tr class='invalid'><td colspan='5'><p>data tidak ditemukan...</p></td></tr>"
+      )
+    : $("tbody").html(
+        array.slice((page - 1) * max_index, page * max_index).map(
+          (product) => `   
         <tr>
             <td class="action">
             <button class="default edit no-bg" data-id="${product?.id}">
@@ -161,6 +187,6 @@ export const render = (array = [], max_index = 10, page = 1) => {
             </td>
         </tr>
       `
-    )
-  );
+        )
+      );
 };

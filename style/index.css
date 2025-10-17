@@ -154,9 +154,20 @@ table {
   tbody tr {
     background-color: var(--color-default) !important;
     transition: background-color 0.1s ease-in-out;
+
     &:hover {
       background-color: var(--color-fade) !important;
     }
+  }
+
+  tbody tr.invalid td p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+    background-color: transparent !important;
+    font-style: italic;
+    opacity: 0.5;
   }
 
   tbody tr:nth-child(1) > td {
@@ -608,7 +619,7 @@ form {
   }
 }
 
-#label-toggle {
+.label-toggle {
   height: 30px;
   width: 30px;
   display: grid;
@@ -632,7 +643,7 @@ footer {
     gap: 1rem;
 
     i {
-      cursor: f;
+      cursor: pointer;
     }
 
     .pagination-lists {
