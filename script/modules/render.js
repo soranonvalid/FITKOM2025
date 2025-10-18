@@ -1,3 +1,11 @@
+import {
+  products,
+  searchKeyword,
+  filterType,
+  suffix,
+  indexPage,
+} from "../index.js";
+
 export const pageLimit = (length, max = 10) => {
   return Math.ceil(length / max);
 };
@@ -49,7 +57,6 @@ export const renderPaginationButton = (
 ) => {
   const totalPages = pageLimit(filteredData.length, max);
   const pagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);
-  // console.log(pagesArray, indexPage);
   const loadedRow = filteredData.slice(
     (indexPage - 1) * max,
     indexPage * max
@@ -77,7 +84,7 @@ export const renderPaginationButton = (
 
   if (totalPages > 0) {
     // backward
-    if (renderedArray.backward !== null) {
+    if (renderedArray.backward !== null || renderedArray.backward < 0) {
       $(`<p data-id="${renderedArray.backward}">${renderedArray.backward}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -91,7 +98,7 @@ export const renderPaginationButton = (
         });
     }
     // previous
-    if (renderedArray.prev !== null) {
+    if (renderedArray.prev !== null || renderedArray.prev < 0) {
       $(`<p data-id="${renderedArray.prev}">${renderedArray.prev}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -110,7 +117,7 @@ export const renderPaginationButton = (
     );
 
     // next
-    if (renderedArray.next !== null) {
+    if (renderedArray.next !== null || renderedArray.next < 0) {
       $(`<p data-id="${renderedArray.next}">${renderedArray.next}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -124,7 +131,7 @@ export const renderPaginationButton = (
         });
     }
     // forward
-    if (renderedArray.forward != null) {
+    if (renderedArray.forward !== null || renderedArray.forward < 0) {
       $(`<p data-id="${renderedArray.forward}">${renderedArray.forward}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -162,13 +169,20 @@ export const renderPaginationButton = (
   }
 };
 
-export const render = (array = [], max_index = 10, page = 1) => {
-  array.length <= 0
+export const render = (max_index = 10, page = indexPage()) => {
+  const base = products(); // current products
+  const filtered = filterProducts(
+    base,
+    searchKeyword(),
+    filterType(),
+    suffix()
+  );
+  filtered.length <= 0
     ? $("tbody").html(
         "<tr class='invalid'><td colspan='5'><p>data tidak ditemukan...</p></td></tr>"
       )
     : $("tbody").html(
-        array.slice((page - 1) * max_index, page * max_index).map(
+        filtered.slice((page - 1) * max_index, page * max_index).map(
           (product) => `   
         <tr>
             <td class="action">

@@ -31,7 +31,7 @@ const state = (initial) => {
   const get = () => value;
   const set = (newValue) => {
     value = newValue;
-    render(products(), 10, indexPage());
+    render();
     renderPaginationButton(products(), setIndexPage, indexPage(), 10);
   };
   return [get, set];
@@ -115,7 +115,7 @@ const filterListener = (type) => {
     );
     setFilteredProducts(filtered);
     setIndexPage(1);
-    render(filtered, 10, 1);
+    render();
     renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
   });
 };
@@ -141,7 +141,7 @@ $(".pencarian").on("input", (e) => {
   );
   setFilteredProducts(filtered);
   setIndexPage(1);
-  render(filtered, 10, 1);
+  render();
   renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
 
@@ -149,16 +149,16 @@ $(".pencarian").on("input", (e) => {
 
 // base
 const [id, setId] = state(null);
-const [products, setProducts] = state([]);
+export const [products, setProducts] = state([]);
 
 // filter & search
-const [searchKeyword, setSearchKeyword] = state("");
-const [filterType, setFilterType] = state(null);
-const [suffix, setSuffix] = state(null);
-const [filteredProducts, setFilteredProducts] = state(products());
+export const [searchKeyword, setSearchKeyword] = state("");
+export const [filterType, setFilterType] = state(null);
+export const [suffix, setSuffix] = state(null);
+export const [filteredProducts, setFilteredProducts] = state(products());
 
 // pagination
-const [indexPage, setIndexPage] = state(1);
+export const [indexPage, setIndexPage] = state(1);
 
 // Handling
 export const createDataHandler = async (data) => {
@@ -342,6 +342,6 @@ getData((data) => {
     suffix()
   );
   setFilteredProducts(filtered);
-  render(filtered, 10, 1);
+  render();
   renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
