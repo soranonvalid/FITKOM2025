@@ -9,7 +9,7 @@ $input = json_decode($raw, true);
 
 switch ($method) {
     case 'GET':
-        $sql = "SELECT * FROM `tb_smart_farm`";
+        $sql = "SELECT p.id, p.kode, p.nama, p.satuan, p.harga, p.gambar, g.namagudang, g.golongan FROM tb_produk p JOIN tb_gudang g ON p.kodegudang = g.kodegudang";
         $result = mysqli_query($conn, $sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
@@ -33,7 +33,7 @@ switch ($method) {
             break;
         }
 
-        $sql = "INSERT INTO `tb_smart_farm`(`gambar`, `kode`, `nama`, `satuan`, `harga`) VALUES ('$gambar','$kode','$nama','$satuan','$harga')";
+        $sql = "INSERT INTO `tb_produk`(`gambar`, `kode`, `nama`, `satuan`, `harga`) VALUES ('$gambar','$kode','$nama','$satuan','$harga')";
         $ok = mysqli_query($conn, $sql);
 
         echo json_encode([
@@ -74,7 +74,7 @@ switch ($method) {
             break;
         }
 
-        $sql = "UPDATE `tb_smart_farm` SET `gambar`='$gambar', `kode`='$kode',`nama`='$nama',`satuan`='$satuan',`harga`='$harga' WHERE `tb_smart_farm`.`id` = '$id'";
+        $sql = "UPDATE `tb_produk` SET `gambar`='$gambar', `kode`='$kode',`nama`='$nama',`satuan`='$satuan',`harga`='$harga' WHERE `tb_produk`.`id` = '$id'";
         $ok = mysqli_query($conn, $sql);
 
         echo json_encode([
@@ -96,7 +96,7 @@ switch ($method) {
             break;
         }
 
-        $sql = "DELETE FROM `tb_smart_farm` WHERE `id` = '$id'";
+        $sql = "DELETE FROM `tb_produk` WHERE `id` = '$id'";
         $ok = mysqli_query($conn, $sql);
 
         echo json_encode([

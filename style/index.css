@@ -21,7 +21,6 @@ html {
 
   body {
     padding: 1rem;
-    overflow: hidden;
     main {
       max-width: 1200px;
       margin: 0 auto;
@@ -636,6 +635,7 @@ footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   .index_buttons {
     display: flex;

@@ -369,7 +369,9 @@
           <colgroup>
             <col span="1" style="width: 2%" />
             <col span="1" style="width: 3%" />
-            <col span="1" style="width: 20%" />
+            <col span="1" style="width: 17.5%" />
+            <col span="1" style="width: 10%" />
+            <col span="1" style="width: 10%" />
             <col span="1" style="width: 3%" />
             <col span="1" style="width: 10%" />
           </colgroup>
@@ -401,6 +403,50 @@
               <th>
                 <div id="filter-nama" class="wrapper filter-inquire">
                   <span class="off">Nama</span>
+                  <label for="filter" class="label-toggle"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down"
+                    >
+                      <path d="m7 15 5 5 5-5" />
+                      <path d="m7 9 5-5 5 5" />
+                    </svg>
+                  </label>
+                </div>
+              </th>
+              <th>
+                <div id="filter-gudang" class="wrapper filter-inquire">
+                  <span class="off">Gudang</span>
+                  <label for="filter" class="label-toggle"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down"
+                    >
+                      <path d="m7 15 5 5 5-5" />
+                      <path d="m7 9 5-5 5 5" />
+                    </svg>
+                  </label>
+                </div>
+              </th>
+              <th>
+                <div id="filter-golongan" class="wrapper filter-inquire">
+                  <span class="off">Golongan</span>
                   <label for="filter" class="label-toggle"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -483,57 +529,17 @@
                   <p style="width: 30%; height: 14px" class="skeleton"></p>
                 </div>
               </td>
+              <td id="gudang">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
+              <td id="golongan">
+                <p style="width: 50%; height: 14px" class="skeleton"></p>
+              </td>
               <td id="satuan">
                 <p style="width: 50%; height: 14px" class="skeleton"></p>
               </td>
               <td id="harga">
                 <p style="width: 30%; height: 14px" class="skeleton"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="action">
-                <button
-                  class="default skeleton"
-                  style="width: 16px; height: 16px"
-                ></button>
-              </td>
-              <td id="kode">
-                <p style="width: 50%; height: 14px" class="skeleton"></p>
-              </td>
-              <td id="nama">
-                <div>
-                  <div style="width: 30px; height: 30px" class="skeleton"></div>
-                  <p style="width: 10%; height: 14px" class="skeleton"></p>
-                </div>
-              </td>
-              <td id="satuan">
-                <p style="width: 50%; height: 14px" class="skeleton"></p>
-              </td>
-              <td id="harga">
-                <p style="width: 20%; height: 14px" class="skeleton"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="action">
-                <button
-                  class="default skeleton"
-                  style="width: 16px; height: 16px"
-                ></button>
-              </td>
-              <td id="kode">
-                <p style="width: 50%; height: 14px" class="skeleton"></p>
-              </td>
-              <td id="nama">
-                <div>
-                  <div style="width: 30px; height: 30px" class="skeleton"></div>
-                  <p style="width: 20%; height: 14px" class="skeleton"></p>
-                </div>
-              </td>
-              <td id="satuan">
-                <p style="width: 50%; height: 14px" class="skeleton"></p>
-              </td>
-              <td id="harga">
-                <p style="width: 50%; height: 14px" class="skeleton"></p>
               </td>
             </tr>
           </tbody>

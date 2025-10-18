@@ -84,7 +84,7 @@ export const renderPaginationButton = (
 
   if (totalPages > 0) {
     // backward
-    if (renderedArray.backward !== null || renderedArray.backward < 0) {
+    if (renderedArray.backward !== null && renderedArray.backward < 0) {
       $(`<p data-id="${renderedArray.backward}">${renderedArray.backward}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -200,6 +200,12 @@ export const render = (max_index = 10, page = indexPage()) => {
                     }" alt="sayur" class="img-render" />
                     <p class="no-bg">${product?.nama}</p>
                 </div>
+            </td>
+            <td id="gudang">
+                <p class="no-bg">${product?.namagudang}</p>
+            </td>
+            <td id="golongan">
+                <p class="no-bg">${product?.golongan}</p>
             </td>
             <td id="satuan">
                 <p class="no-bg">${product?.satuan}</p>
