@@ -32,6 +32,7 @@ const state = (initial) => {
   const set = (newValue) => {
     value = newValue;
     render(products(), 10, indexPage());
+    renderPaginationButton(products(), setIndexPage, indexPage(), 10);
   };
   return [get, set];
 };

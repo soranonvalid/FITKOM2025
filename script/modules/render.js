@@ -49,6 +49,12 @@ export const renderPaginationButton = (
 ) => {
   const totalPages = pageLimit(filteredData.length, max);
   const pagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);
+  // console.log(pagesArray, indexPage);
+  const loadedRow = filteredData.slice(
+    (indexPage - 1) * max,
+    indexPage * max
+  ).length;
+  console.log("object", loadedRow);
   const renderedArray = {
     prev: indexPage === 1 ? null : indexPage - 1,
     backward:
@@ -63,6 +69,11 @@ export const renderPaginationButton = (
   };
 
   $(".pagination-lists").empty();
+  $("#footer-span").html(
+    `Showing ${indexPage === 1 ? "1" : indexPage * 10 + 1 - 10} - ${
+      indexPage === 1 ? "10" : indexPage * 10 + loadedRow - 10
+    } from ${filteredData.length}`
+  );
 
   if (totalPages > 0) {
     // backward
@@ -152,7 +163,6 @@ export const renderPaginationButton = (
 };
 
 export const render = (array = [], max_index = 10, page = 1) => {
-  console.log("render", array.length);
   array.length <= 0
     ? $("tbody").html(
         "<tr class='invalid'><td colspan='5'><p>data tidak ditemukan...</p></td></tr>"
