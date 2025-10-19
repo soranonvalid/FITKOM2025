@@ -17,6 +17,7 @@ import {
   deleteData,
   postData,
   updateData,
+  getDataGudang,
 } from "./modules/CRUDFunction.js";
 import {
   render,
@@ -172,6 +173,7 @@ export const createDataHandler = async (data) => {
           harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
           satuan: data.satuan,
           nama: data.nama,
+          kodegudang: data.kodegudang,
         },
         setProducts
       );
@@ -190,6 +192,7 @@ export const createDataHandler = async (data) => {
           harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
           satuan: data.satuan,
           nama: data.nama,
+          kodegudang: data.kodegudang,
         },
         setProducts
       );
@@ -199,6 +202,7 @@ export const createDataHandler = async (data) => {
       console.error(err);
     }
   }
+  renderPaginationButton(fil);
 };
 
 export const editDataHandler = async (data) => {
@@ -273,6 +277,14 @@ $(".editForm").on("submit", async function (e) {
 // delete
 $("#delete").on("click", async function () {
   try {
+    setIndexPage(1);
+    const filtered = filterProducts(
+      products(),
+      searchKeyword(),
+      filterType(),
+      suffix()
+    );
+    renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
     await deleteData(id(), setProducts);
     closePromptForce();
     pushNotification("Data berhasil dihapus!", "error");
@@ -304,9 +316,6 @@ $(document).on("click", ".edit", function () {
 });
 
 $(".next-btn").on("click", () => {
-  if (indexPage() >= pageLimit(filteredProducts().length, 10)) {
-    return;
-  }
   const filtered = filterProducts(
     products(),
     searchKeyword(),
@@ -314,7 +323,12 @@ $(".next-btn").on("click", () => {
     suffix()
   );
 
-  setIndexPage(indexPage() + 1);
+  if (indexPage() >= pageLimit(filtered.length, 10)) {
+    return;
+  }
+
+  const target = indexPage() + 1;
+  setIndexPage(target);
   renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
 
@@ -333,8 +347,9 @@ $(".prev-btn").on("click", () => {
   renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
 
-getData((data) => {
-  setProducts(data);
+getData(async (data) => {
+  const produk = await data;
+  setProducts(produk);
   const filtered = filterProducts(
     products(),
     searchKeyword(),
@@ -342,6 +357,16 @@ getData((data) => {
     suffix()
   );
   setFilteredProducts(filtered);
+  getDataGudang(async (data) => {
+    const gudang = await data;
+    for (let i = 0; i < gudang.length; i++) {
+      $(".gudang").append(
+        $(
+          `<option value='${gudang[i]?.kodegudang}' name='createFormSelect'>${gudang[i]?.namagudang}</option>`
+        )
+      );
+    }
+  });
   render();
   renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });

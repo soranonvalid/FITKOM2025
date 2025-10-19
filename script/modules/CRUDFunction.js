@@ -1,3 +1,18 @@
+const getDataGudang = async (state) => {
+  try {
+    await fetch("./backend/backend.php?type=gudang", {
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        state(data);
+        console.log(data);
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const getData = async (state) => {
   try {
     await fetch("./backend/backend.php", {
@@ -64,4 +79,4 @@ const updateData = async (newData, state) => {
   }
 };
 
-export { getData, deleteData, postData, updateData };
+export { getDataGudang, getData, deleteData, postData, updateData };

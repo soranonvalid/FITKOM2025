@@ -179,7 +179,7 @@ export const render = (max_index = 10, page = indexPage()) => {
   );
   filtered.length <= 0
     ? $("tbody").html(
-        "<tr class='invalid'><td colspan='5'><p>data tidak ditemukan...</p></td></tr>"
+        "<tr class='invalid'><td colspan='7'><p>data tidak ditemukan...</p></td></tr>"
       )
     : $("tbody").html(
         filtered.slice((page - 1) * max_index, page * max_index).map(

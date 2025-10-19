@@ -1,6 +1,8 @@
 <?php
 header("Content-Type: application/json");
 include "koneksi.php";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $method = $_SERVER["REQUEST_METHOD"];
 
@@ -9,14 +11,28 @@ $input = json_decode($raw, true);
 
 switch ($method) {
     case 'GET':
-        $sql = "SELECT p.id, p.kode, p.nama, p.satuan, p.harga, p.gambar, g.namagudang, g.golongan FROM tb_produk p JOIN tb_gudang g ON p.kodegudang = g.kodegudang";
-        $result = mysqli_query($conn, $sql);
-        $data = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
+        if (isset($_GET['type']) && $_GET['type'] == 'gudang') {
+            $sql = "SELECT * FROM tb_gudang";
+            $result = mysqli_query($conn, $sql);
+            $data = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $data[] = $row;
+            }
+            echo json_encode($data);
+            break;
+        } else {
+            // Return products ordered by id as requested
+            $sql = "SELECT p.id, p.kode, p.nama, p.satuan, p.harga, p.gambar, g.namagudang, g.golongan FROM tb_produk p JOIN tb_gudang g ON p.kodegudang = g.kodegudang ORDER BY p.id ASC";
+            $result = mysqli_query($conn, $sql);
+            $data = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $data[] = $row;
+            }
+            echo json_encode($data);
+            break;
         }
-        echo json_encode($data);
-        break;
+
+
 
     case 'POST':
         $gambar = $input['gambar'] ?? null;
@@ -24,8 +40,9 @@ switch ($method) {
         $nama = $input['nama'] ?? null;
         $satuan = $input['satuan'] ?? null;
         $harga = $input['harga'] ?? null;
+        $kodegudang = $input['kodegudang'] ?? null;
 
-        if (!$gambar || !$kode || !$nama || !$satuan || !$harga) {
+        if (!$gambar || !$kode || !$nama || !$satuan || !$harga || !$kodegudang) {
             echo json_encode([
                 "status" => "error",
                 "message" => "Data tidak lengkap"
@@ -33,20 +50,27 @@ switch ($method) {
             break;
         }
 
-        $sql = "INSERT INTO `tb_produk`(`gambar`, `kode`, `nama`, `satuan`, `harga`) VALUES ('$gambar','$kode','$nama','$satuan','$harga')";
+        $sql = "INSERT INTO `tb_produk`(`kode`, `nama`, `satuan`, `harga`, `gambar`, `kodegudang`) VALUES ('$kode','$nama','$satuan','$harga','$gambar','$kodegudang')";
         $ok = mysqli_query($conn, $sql);
 
-        echo json_encode([
-            "status" => "success",
-            "message" => "Data diterima",
-            "data" => [
-                "gambar" => $gambar,
-                "kode" => $kode,
-                "nama" => $nama,
-                "satuan" => $satuan,
-                "harga" => $harga
-            ]
-        ]);
+        if (!$ok) {
+            echo json_encode([
+                "sql" => $sql
+            ]);
+        } else {
+            echo json_encode([
+                "status" => "success",
+                "message" => "Data diterima",
+                "data" => [
+                    "gambar" => $gambar,
+                    "kode" => $kode,
+                    "nama" => $nama,
+                    "satuan" => $satuan,
+                    "harga" => $harga,
+                    "kodegudang" => $kodegudang
+                ],
+            ]);
+        }
         break;
 
     case 'PUT':

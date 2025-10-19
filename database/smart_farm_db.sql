@@ -1,73 +1,147 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 29 Sep 2025 pada 07.58
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Oct 19, 2025 at 04:19 AM
+-- Server version: 5.7.24
+-- PHP Version: 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
--- --------------------------------------------------------
-
+--
 -- Database: `smart_farm_db`
 --
 
-CREATE DATABASE IF NOT EXISTS `smart_farm_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `smart_farm_db`;
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_gudang`
+--
+
+CREATE TABLE `tb_gudang` (
+  `id` int(11) NOT NULL,
+  `kodegudang` varchar(50) NOT NULL,
+  `namagudang` varchar(200) NOT NULL,
+  `golongan` varchar(50) NOT NULL,
+  `keterangan` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_gudang`
+--
+
+INSERT INTO `tb_gudang` (`id`, `kodegudang`, `namagudang`, `golongan`, `keterangan`) VALUES
+(1, 'G001', 'Gudang A', 'Sayur', 'Gudang untuk sayur'),
+(2, 'G002', 'Gudang B', 'Buah', 'Gudang untuk buah'),
+(3, 'G003', 'Gudang C', 'Tools', 'Gudang untuk tools');
 
 -- --------------------------------------------------------
 
--- Struktur tabel `tb_smart_farm`
+--
+-- Table structure for table `tb_produk`
 --
 
-DROP TABLE IF EXISTS `tb_smart_farm`;
-CREATE TABLE `tb_smart_farm` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `gambar` LONGTEXT NOT NULL,
-  `kode` VARCHAR(50) NOT NULL,
-  `nama` VARCHAR(50) NOT NULL,
-  `satuan` VARCHAR(50) NOT NULL,
-  `harga` INT NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `tb_produk` (
+  `id` int(11) NOT NULL,
+  `kode` varchar(50) NOT NULL,
+  `nama` varchar(200) NOT NULL,
+  `satuan` varchar(50) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `gambar` longtext,
+  `kodegudang` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Data untuk tabel `tb_smart_farm`
+--
+-- Dumping data for table `tb_produk`
+--
 
-INSERT INTO `tb_smart_farm` (`gambar`, `kode`, `nama`, `satuan`, `harga`) VALUES
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRKpRKHy4m9uueokOrdxbWyJ40aF1LG4ShnQ&s', 'P001', 'Kangkung Wonogiri', 'ons', 5000),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR43sOx8AglkKanmIEy8jSj_olevalMeBUw6A&s', 'P002', 'Wortel Setu', 'pcs', 2100),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShxFlYm-CFPVmSYUKe3soQnHaK_7voqe2CzQ&s', 'P003', 'Kol Cilegon', 'ons', 1900),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTguaLXpdei81oz-NxB46iFsRXm5NbI14C26w&s', 'P004', 'Timun Medan', 'kg', 11200),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLjVsW0Yrr9D7et2UewkFxVyUTLj4Q9BNI-Q&s', 'P005', 'Terong Beijing', 'pcs', 2000),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUJBJYPasN960YVhcPEW4-CxgB1ZC40uudwA&s', 'P006', 'Terung Belanda', 'kg', 12100),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4xXmtANcF0AZC_7agyg5vHoHfExopPLrybQ&s', 'P007', 'Kecambah Jayapura', 'kg', 900),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5NrX5MVLPVUC2OdIGdJWfL1yr8woWFBLuyw&s', 'P008', 'Kembang Kol Pak Lembong', 'kg', 18200),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR09-SPnf6dE9PX4PPc5RYkEi1Mfd1pAWLPwQ&s', 'P009', 'Kol Ungu Eropa Asli', 'pcs', 6700),
-('https://cdn.grid.id/crop/0x0:0x0/360x240/photo/2020/06/29/1511559795.jpg', 'P010', 'Wortel Aceh Sebrang 100% mutu', 'ons', 21000),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRagW3sGdr-H1rDCWjy5h2EvGSsdz_-5ws0tA&s', 'P011', 'Gabah Haji Emad', 'gros', 43200),
-('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAywUKtxL3UaOnFWFqXsYz42qy_G1xOXt0GQ&s', 'P012', 'Tomat Kairo', 'pcs', 12000);
+INSERT INTO `tb_produk` (`kode`, `nama`, `satuan`, `harga`, `gambar`, `kodegudang`) VALUES
+('P001', 'Kangkung', 'pcs', 5000, 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTM54vgOSWI-2gdLstzN5CGlpHrFi9PZoeKEKCutEHiId2PwGdMH903Yy6Z99i-xXQmc8FUg7O2dtzpSIR4j3Dahw4XmfBdVNrRG62IcO68rA', 'G001'),
+('P002', 'Anggur', 'ons', 12000, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyJCBTozDSC5IDWIMueglp2WWAngoQZVCmLRGl81XwX9v6Sx36DostRzs7uOrMgIYTw3SsD3MXfO9iVEEC41fQ3y1PrOm-GtHIXxDjPpzi', 'G002'),
+('P003', 'Cangkul', 'pcs', 30000, 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTAzBUv42_4eb_GQ7I--AdKQDh34r5_wvfMOyNsx8oaOZoF1ag9xqJt16jDS_xcIiVU-rNZP-QCFktpVg0G6NhDzlgPTDAIBkCoLkqC5aN6UQ', 'G003'),
+('PRD001', 'Produk A', 'pcs', 15000, NULL, 'G001'),
+('PRD002', 'Produk B', 'box', 25000, NULL, 'G001'),
+('PRD003', 'Produk C', 'pcs', 10000, NULL, 'G002'),
+('PRD004', 'Produk D', 'pak', 30000, NULL, 'G003'),
+('PRD005', 'Produk E', 'lusin', 45000, NULL, 'G002'),
+('PRD006', 'Produk F', 'pcs', 18000, NULL, 'G001'),
+('PRD007', 'Produk G', 'box', 20000, NULL, 'G003'),
+('PRD008', 'Produk H', 'pcs', 12000, NULL, 'G003'),
+('PRD009', 'Produk I', 'pak', 22000, NULL, 'G002'),
+('PRD010', 'Produk J', 'lusin', 35000, NULL, 'G001'),
+('PRD011', 'Produk K', 'pcs', 15500, NULL, 'G003'),
+('PRD012', 'Produk L', 'pak', 27500, NULL, 'G001'),
+('PRD013', 'Produk M', 'box', 32000, NULL, 'G002'),
+('PRD014', 'Produk N', 'pcs', 14500, NULL, 'G003'),
+('PRD015', 'Produk O', 'lusin', 41000, NULL, 'G001'),
+('PRD016', 'Produk P', 'pak', 23000, NULL, 'G002'),
+('PRD017', 'Produk Q', 'box', 26000, NULL, 'G003'),
+('PRD018', 'Produk R', 'pcs', 17000, NULL, 'G001'),
+('PRD019', 'Produk S', 'pak', 19500, NULL, 'G003'),
+('PRD020', 'Produk T', 'lusin', 40000, NULL, 'G002'),
+('PRD021', 'Produk U', 'pcs', 16000, NULL, 'G003'),
+('PRD022', 'Produk V', 'box', 24500, NULL, 'G001'),
+('PRD023', 'Produk W', 'pak', 31000, NULL, 'G002'),
+('PRD024', 'Produk X', 'pcs', 14000, NULL, 'G001'),
+('PRD025', 'Produk Y', 'lusin', 42000, NULL, 'G003'),
+('PRD026', 'Produk Z', 'pak', 28500, NULL, 'G001'),
+('PRD027', 'Produk AA', 'box', 26500, NULL, 'G002'),
+('PRD029', 'Produk AC', 'pak', 29000, NULL, 'G001'),
+('PRD030', 'Produk AD', 'lusin', 37500, NULL, 'G002');
 
--- Optional: Tambahkan UNIQUE constraint kalau `kode` harus unik
--- ALTER TABLE `tb_smart_farm` ADD UNIQUE (`kode`);
+--
+-- Indexes for dumped tables
+--
 
--- Set nilai AUTO_INCREMENT agar id berikutnya benar
-ALTER TABLE `tb_smart_farm`
-  AUTO_INCREMENT = 13;
+--
+-- Indexes for table `tb_gudang`
+--
+ALTER TABLE `tb_gudang`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kodegudang` (`kodegudang`);
 
-ALTER TABLE `tb_smart_farm`
-MODIFY COLUMN satuan ENUM('pcs', 'ons', 'kg', 'gros') NOT NULL DEFAULT 'pcs';
+--
+-- Indexes for table `tb_produk`
+--
+ALTER TABLE `tb_produk`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode` (`kode`),
+  ADD KEY `kodegudang` (`kodegudang`);
 
--- Optional: Database `test`
-CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+--
+-- AUTO_INCREMENT for dumped tables
+--
 
+--
+-- AUTO_INCREMENT for table `tb_gudang`
+--
+ALTER TABLE `tb_gudang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tb_produk`
+--
+ALTER TABLE `tb_produk`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tb_produk`
+--
+ALTER TABLE `tb_produk`
+  ADD CONSTRAINT `tb_produk_ibfk_1` FOREIGN KEY (`kodegudang`) REFERENCES `tb_gudang` (`kodegudang`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
