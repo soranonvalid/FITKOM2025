@@ -24,6 +24,7 @@ const promptHandler = (type) => {
       $(`#${type}Prompt`).addClass("active");
       clearError(type);
       satuanSwitchers(type);
+      gudangSwitchers(type);
     }
   });
 };
