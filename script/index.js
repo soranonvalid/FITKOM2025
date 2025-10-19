@@ -3,6 +3,7 @@ import {
   closePromptForce,
   imageSwitchers,
   satuanSwitchers,
+  gudangSwitchers,
   realTimeHarga,
   formValidation,
   validationField,
@@ -63,6 +64,8 @@ $(function () {
   imageSwitchers("edit");
   satuanSwitchers("create");
   satuanSwitchers("edit");
+  gudangSwitchers("create");
+  gudangSwitchers("edit");
   realTimeHarga("create");
   realTimeHarga("edit");
 

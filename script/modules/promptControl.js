@@ -85,6 +85,17 @@ const satuanSwitchers = (type) => {
   });
 };
 
+const gudangSwitchers = (type) => {
+  $(`#${type}gudang`).trigger("change");
+  $(`#${type}gudang`).on("change", function () {
+    if ($(this).val() === null || $(this).val() === "") {
+      $(this).addClass("invalid");
+    } else {
+      $(this).removeClass("invalid");
+    }
+  });
+};
+
 // convert number in real time
 const realTimeHarga = (type) => {
   $(`#${type}harga`).on("input", function () {
@@ -175,6 +186,17 @@ const validateCheck = (data, type) => {
     }
   }
 
+  // gudang
+  if (!data.satuan) {
+    error.status = true;
+    error.message = "gudang tidak boleh kosong";
+
+    $(`#${type}Form #input-${type}-gudang`).addClass("error");
+    setError(`${type}`, error.message);
+  } else {
+    $(`#${type}Form #input-${type}-gudang`).removeClass("error");
+  }
+
   // satuan
   if (!data.satuan) {
     error.status = true;
@@ -212,6 +234,7 @@ const validateCheck = (data, type) => {
 };
 
 const formValidation = (data, type) => {
+  console.log(data);
   let check = validateCheck(data, type);
 
   if (check.status === false) {
@@ -241,6 +264,7 @@ export {
   clearError,
   resetForm,
   imageSwitchers,
+  gudangSwitchers,
   satuanSwitchers,
   realTimeHarga,
   formValidation,
