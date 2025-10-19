@@ -224,6 +224,7 @@ export const editDataHandler = async (data) => {
           harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
           satuan: data.satuan,
           nama: data.nama,
+          kodegudang: data.kodegudang,
         },
         setProducts
       );
@@ -244,6 +245,7 @@ export const editDataHandler = async (data) => {
             harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
             satuan: data.satuan,
             nama: data.nama,
+            kodegudang: data.kodegudang,
           },
           setProducts
         );
@@ -308,10 +310,13 @@ $(document).on("click", ".edit", function () {
     (product) => product.id == selectedId
   );
 
+  console.log(selectedProduct);
+
   if (selectedProduct) {
     $("#editkode").val(selectedProduct.kode);
     $("#editnama").val(selectedProduct.nama);
     $("#editsatuan").val(selectedProduct.satuan);
+    $("#editgudang").val(selectedProduct.kodegudang);
     $("#editharga").val(convertNumber(selectedProduct.harga));
     $("#editimageurl").val(selectedProduct.gambar);
   }
