@@ -7,7 +7,7 @@
 
 $host = "localhost";
 $user = "root";
-$pass = "root";
+$pass = "";
 $db = "smart_farm_db";
 $conn =  mysqli_connect($host , $user, $pass, $db);
 if (!$conn) {

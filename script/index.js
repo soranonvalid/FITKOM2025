@@ -71,6 +71,8 @@ $(function () {
   filterListener("satuan");
   filterListener("nama");
   filterListener("kode");
+  filterListener("gudang");
+  filterListener("golongan");
 });
 
 const filterListener = (type) => {

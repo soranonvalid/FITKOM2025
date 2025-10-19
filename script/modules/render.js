@@ -17,7 +17,9 @@ export function filterProducts(products, keyword = "", type, suffix) {
       product.nama.toLowerCase().includes(search) ||
       product.kode.toLowerCase().includes(search) ||
       product.harga.toString().includes(search) ||
-      product.satuan.toLowerCase().includes(search)
+      product.satuan.toLowerCase().includes(search) ||
+      product.namagudang.toLowerCase().includes(search) ||
+      product.golongan.toLowerCase().includes(search)
   );
 
   if (type === "harga") {
@@ -44,6 +46,18 @@ export function filterProducts(products, keyword = "", type, suffix) {
       if (suffix === "lowest") return b.satuan.localeCompare(a.satuan);
       return 0;
     });
+  } else if (type === "gudang") {
+    return searched.sort((a, b) => {
+      if (suffix === "highest") return a.namagudang.localeCompare(b.namagudang);
+      if (suffix === "lowest") return b.namagudang.localeCompare(a.namagudang);
+      return 0;
+    });
+  } else if (type === "golongan") {
+    return searched.sort((a, b) => {
+      if (suffix === "highest") return a.golongan.localeCompare(b.golongan);
+      if (suffix === "lowest") return b.golongan.localeCompare(a.golongan);
+      return 0;
+    });
   } else {
     return searched;
   }
@@ -61,7 +75,6 @@ export const renderPaginationButton = (
     (indexPage - 1) * max,
     indexPage * max
   ).length;
-  console.log("object", loadedRow);
   const renderedArray = {
     prev: indexPage === 1 ? null : indexPage - 1,
     backward:
