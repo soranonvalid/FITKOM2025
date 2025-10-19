@@ -22,7 +22,7 @@ switch ($method) {
             break;
         } else {
             // Return products ordered by id as requested
-            $sql = "SELECT p.id, p.kode, p.nama, p.satuan, p.harga, p.gambar, g.namagudang, g.golongan FROM tb_produk p JOIN tb_gudang g ON p.kodegudang = g.kodegudang ORDER BY p.id ASC";
+            $sql = "SELECT p.id, p.kode, p.nama, p.satuan, p.harga, p.gambar, p.kodegudang, g.namagudang, g.golongan FROM tb_produk p JOIN tb_gudang g ON p.kodegudang = g.kodegudang ORDER BY p.id ASC";
             $result = mysqli_query($conn, $sql);
             $data = [];
             while ($row = mysqli_fetch_assoc($result)) {
@@ -80,6 +80,7 @@ switch ($method) {
         $nama = $input['nama'] ?? null;
         $satuan = $input['satuan'] ?? null;
         $harga = $input['harga'] ?? null;
+        $kodegudang = $input['kodegudang'] ?? null;
 
         if (!$id) {
             echo json_encode([
@@ -90,7 +91,7 @@ switch ($method) {
             break;
         }
 
-        if (!$gambar || !$kode || !$nama || !$satuan || !$harga) {
+        if (!$gambar || !$kode || !$nama || !$satuan || !$harga || !$kodegudang) {
             echo json_encode([
                 "status" => "error",
                 "message" => "Data tidak lengkap"
@@ -98,7 +99,7 @@ switch ($method) {
             break;
         }
 
-        $sql = "UPDATE `tb_produk` SET `gambar`='$gambar', `kode`='$kode',`nama`='$nama',`satuan`='$satuan',`harga`='$harga' WHERE `tb_produk`.`id` = '$id'";
+        $sql = "UPDATE `tb_produk` SET `gambar`='$gambar', `kode`='$kode',`nama`='$nama',`satuan`='$satuan',`harga`='$harga', `kodegudang`='$kodegudang' WHERE `tb_produk`.`id` = '$id'";
         $ok = mysqli_query($conn, $sql);
 
         echo json_encode([
