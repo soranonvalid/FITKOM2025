@@ -659,7 +659,8 @@ footer {
         justify-content: center;
         border-radius: 100%;
         padding: 2px;
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--color-contrast);
+        opacity: 0.5;
         user-select: none;
         -webkit-user-select: none; /* Safari */
         -moz-user-select: none; /* Firefox */
@@ -669,7 +670,8 @@ footer {
           animation: fadeIn 0.2s ease-in-out;
           font-weight: bold;
           background-color: var(--color-unique);
-          color: white;
+          color: var(--color-contrast);
+          opacity: 1 !important;
         }
       }
     }
