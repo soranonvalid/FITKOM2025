@@ -155,6 +155,6 @@ getData(async (data) => {
         )
       );
     }
-  }, "?type=gudang");
+  }, "?type=kendaraan");
   render();
-}, "?type=gudang");
+}, "?type=kendaraan");

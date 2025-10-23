@@ -1,4 +1,4 @@
-const getData = async (state, types = "?type=gudang") => {
+const getData = async (state, types = "?type=kendaraan") => {
   try {
     await fetch(
       window.location.origin + "/timbkodein/backend/backend.php" + types,

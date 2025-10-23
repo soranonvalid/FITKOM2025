@@ -1,4 +1,4 @@
-import { convertNumber, convertToBase64, pushNotification } from "./utils.js";
+import { pushNotification } from "./utils.js";
 import { postData, updateData } from "./api.js";
 import { id, setId, setItem, item } from "../index.js";
 
