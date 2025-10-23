@@ -21,7 +21,7 @@ switch ($method) {
             echo json_encode($data);
             break;
         } else {
-            $sql = "SELECT p.id, p.kodeproduk, p.nama, p.satuan, p.harga, p.gambar, g.namagudang FROM produk p JOIN gudang g ON p.kodegudang = g.kodegudang ORDER BY p.id ASC";
+            $sql = "SELECT p.id, p.kodeproduk, p.nama, p.satuan, p.harga, p.gambar, g.kodegudang, g.namagudang FROM produk p JOIN gudang g ON p.kodegudang = g.kodegudang ORDER BY p.id ASC";
             $result = mysqli_query($conn, $sql);
             $data = [];
             while ($row = mysqli_fetch_assoc($result)) {
