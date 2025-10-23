@@ -1,5 +1,6 @@
-import { convertNumber } from "./utils.js";
-import { editDataHandler, createDataHandler } from "../index.js";
+import { convertNumber, convertToBase64, pushNotification } from "./utils.js";
+import { postData, updateData } from "./api.js";
+import { id, setId, setProducts } from "../index.js";
 
 // early clear error
 const clearError = (type) => {
@@ -257,6 +258,101 @@ const validationField = (field) => {
   } else {
     $(field).parent().removeClass("error");
   }
+};
+
+// Handling
+const createDataHandler = async (data) => {
+  console.log("data created: ", data);
+  if (data.creategambar === "url") {
+    try {
+      await postData(
+        {
+          gambar: data.imageurl,
+          kode: data.kode,
+          harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
+          satuan: data.satuan,
+          nama: data.nama,
+          kodegudang: data.kodegudang,
+        },
+        setProducts
+      );
+      closePromptForce();
+      pushNotification("Data berhasil ditambah!", "primary");
+    } catch (err) {
+      console.error(err);
+    }
+  } else {
+    try {
+      const base64 = await convertToBase64(data.imageupload);
+      await postData(
+        {
+          gambar: base64,
+          kode: data.kode,
+          harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
+          satuan: data.satuan,
+          nama: data.nama,
+          kodegudang: data.kodegudang,
+        },
+        setProducts
+      );
+      closePromptForce();
+      pushNotification("Data berhasil ditambah!", "primary");
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  renderPaginationButton();
+};
+
+const editDataHandler = async (data) => {
+  console.log("data edited: ", data);
+  const $btn = $(".simpan-edit-btn");
+  $btn.attr("disabled", "disabled");
+  if (data.editgambar === "url") {
+    try {
+      await updateData(
+        {
+          id: id(),
+          gambar: data.imageurl,
+          kode: data.kode,
+          harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
+          satuan: data.satuan,
+          nama: data.nama,
+          kodegudang: data.kodegudang,
+        },
+        setProducts
+      );
+      closePromptForce();
+      pushNotification("Data berhasil diedit!", "primary");
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    if (data.imageupload.name !== "") {
+      try {
+        const base64 = await convertToBase64(data.imageupload);
+        await updateData(
+          {
+            id: id(),
+            gambar: base64,
+            kode: data.kode,
+            harga: parseInt(data.harga.replace(/\D/g, ""), 10) || 0,
+            satuan: data.satuan,
+            nama: data.nama,
+            kodegudang: data.kodegudang,
+          },
+          setProducts
+        );
+        closePromptForce();
+        pushNotification("Data berhasil diedit!", "primary");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log("File ga boleh kosong");
+    }
+  }
+  setId(null);
 };
 
 export {

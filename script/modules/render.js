@@ -4,6 +4,7 @@ import {
   filterType,
   suffix,
   indexPage,
+  setIndexPage,
 } from "../index.js";
 
 export const pageLimit = (length, max = 10) => {
@@ -97,7 +98,7 @@ export const renderPaginationButton = (
 
   if (totalPages > 0) {
     // backward
-    if (renderedArray.backward !== null && renderedArray.backward < 0) {
+    if (renderedArray.backward !== null && renderedArray.backward > 0) {
       $(`<p data-id="${renderedArray.backward}">${renderedArray.backward}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -111,7 +112,7 @@ export const renderPaginationButton = (
         });
     }
     // previous
-    if (renderedArray.prev !== null || renderedArray.prev < 0) {
+    if (renderedArray.prev !== null && renderedArray.prev > 0) {
       $(`<p data-id="${renderedArray.prev}">${renderedArray.prev}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -130,7 +131,7 @@ export const renderPaginationButton = (
     );
 
     // next
-    if (renderedArray.next !== null || renderedArray.next < 0) {
+    if (renderedArray.next !== null && renderedArray.next > 0) {
       $(`<p data-id="${renderedArray.next}">${renderedArray.next}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -143,8 +144,9 @@ export const renderPaginationButton = (
           );
         });
     }
+
     // forward
-    if (renderedArray.forward !== null || renderedArray.forward < 0) {
+    if (renderedArray.forward !== null && renderedArray.forward > 0) {
       $(`<p data-id="${renderedArray.forward}">${renderedArray.forward}</p>`)
         .appendTo(".pagination-lists")
         .on("click", () => {
@@ -180,6 +182,38 @@ export const renderPaginationButton = (
     // empty
     $(".pagination-lists").append(`<p class="active">1</p>`);
   }
+};
+
+export const prev_page = () => {
+  if (indexPage() <= 1) {
+    return;
+  }
+  const filtered = filterProducts(
+    products(),
+    searchKeyword(),
+    filterType(),
+    suffix()
+  );
+
+  setIndexPage(indexPage() - 1);
+  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
+};
+
+export const next_page = () => {
+  const filtered = filterProducts(
+    products(),
+    searchKeyword(),
+    filterType(),
+    suffix()
+  );
+
+  if (indexPage() >= pageLimit(filtered.length, 10)) {
+    return;
+  }
+
+  const target = indexPage() + 1;
+  setIndexPage(target);
+  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 };
 
 export const render = (max_index = 10, page = indexPage()) => {
