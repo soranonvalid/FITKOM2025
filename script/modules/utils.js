@@ -1,8 +1,6 @@
-import { filterProducts, render, renderPaginationButton } from "./render.js";
+import { filterProducts, render } from "./render.js";
 import {
   products,
-  setIndexPage,
-  indexPage,
   filterType,
   setFilterType,
   suffix,
@@ -23,7 +21,6 @@ const state = (initial) => {
   const set = (newValue) => {
     value = newValue;
     render();
-    renderPaginationButton(products(), setIndexPage, indexPage(), 10);
   };
   return [get, set];
 };
@@ -102,7 +99,6 @@ const filterListener = (type) => {
     setFilteredProducts(filtered);
     setIndexPage(1);
     render();
-    renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
   });
 };
 

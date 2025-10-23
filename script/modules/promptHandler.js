@@ -301,7 +301,6 @@ const createDataHandler = async (data) => {
       console.error(err);
     }
   }
-  renderPaginationButton();
 };
 
 const editDataHandler = async (data) => {

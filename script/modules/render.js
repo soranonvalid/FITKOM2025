@@ -1,11 +1,4 @@
-import {
-  products,
-  searchKeyword,
-  filterType,
-  suffix,
-  indexPage,
-  setIndexPage,
-} from "../index.js";
+import { products, searchKeyword, filterType, suffix } from "../index.js";
 
 export const pageLimit = (length, max = 10) => {
   return Math.ceil(length / max);
@@ -63,160 +56,7 @@ export function filterProducts(products, keyword = "", type, suffix) {
     return searched;
   }
 }
-
-export const renderPaginationButton = (
-  filteredData,
-  setIndexPage,
-  indexPage = 1,
-  max = 10
-) => {
-  const totalPages = pageLimit(filteredData.length, max);
-  const pagesArray = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const loadedRow = filteredData.slice(
-    (indexPage - 1) * max,
-    indexPage * max
-  ).length;
-  const renderedArray = {
-    prev: indexPage === 1 ? null : indexPage - 1,
-    backward:
-      indexPage === pagesArray.at(-1)
-        ? indexPage - 2 < 0
-          ? null
-          : indexPage - 2
-        : null,
-    next: indexPage === pagesArray.at(-1) ? null : indexPage + 1,
-    forward:
-      indexPage === 1 ? (pagesArray.length >= 3 ? indexPage + 2 : null) : null,
-  };
-
-  $(".pagination-lists").empty();
-  $("#footer-span").html(
-    `Showing ${indexPage === 1 ? "1" : indexPage * 10 + 1 - 10} - ${
-      indexPage === 1 ? "10" : indexPage * 10 + loadedRow - 10
-    } from ${filteredData.length}`
-  );
-
-  if (totalPages > 0) {
-    // backward
-    if (renderedArray.backward !== null && renderedArray.backward > 0) {
-      $(`<p data-id="${renderedArray.backward}">${renderedArray.backward}</p>`)
-        .appendTo(".pagination-lists")
-        .on("click", () => {
-          setIndexPage(renderedArray.backward);
-          renderPaginationButton(
-            filteredData,
-            setIndexPage,
-            indexPage - 2,
-            max
-          );
-        });
-    }
-    // previous
-    if (renderedArray.prev !== null && renderedArray.prev > 0) {
-      $(`<p data-id="${renderedArray.prev}">${renderedArray.prev}</p>`)
-        .appendTo(".pagination-lists")
-        .on("click", () => {
-          setIndexPage(renderedArray.prev);
-          renderPaginationButton(
-            filteredData,
-            setIndexPage,
-            indexPage - 1,
-            max
-          );
-        });
-    }
-    // selected pages
-    $(".pagination-lists").append(
-      `<p class="active" data-id="${indexPage}">${indexPage}</p>`
-    );
-
-    // next
-    if (renderedArray.next !== null && renderedArray.next > 0) {
-      $(`<p data-id="${renderedArray.next}">${renderedArray.next}</p>`)
-        .appendTo(".pagination-lists")
-        .on("click", () => {
-          setIndexPage(renderedArray.next);
-          renderPaginationButton(
-            filteredData,
-            setIndexPage,
-            indexPage + 1,
-            max
-          );
-        });
-    }
-
-    // forward
-    if (renderedArray.forward !== null && renderedArray.forward > 0) {
-      $(`<p data-id="${renderedArray.forward}">${renderedArray.forward}</p>`)
-        .appendTo(".pagination-lists")
-        .on("click", () => {
-          setIndexPage(renderedArray.forward);
-          renderPaginationButton(
-            filteredData,
-            setIndexPage,
-            indexPage + 2,
-            max
-          );
-        });
-    }
-    // skip to last
-    if (
-      indexPage < pagesArray.at(-1) &&
-      pagesArray.at(-1) !== renderedArray.next &&
-      pagesArray.at(-1) !== renderedArray.forward
-    ) {
-      $(".pagination-lists").append("<p>...</p>");
-      $(`<p data-id="${pagesArray.at(-1)}">${pagesArray.at(-1)}</p>`)
-        .appendTo(".pagination-lists")
-        .on("click", () => {
-          setIndexPage(pagesArray.at(-1));
-          renderPaginationButton(
-            filteredData,
-            setIndexPage,
-            pagesArray.at(-1),
-            max
-          );
-        });
-    }
-  } else {
-    // empty
-    $(".pagination-lists").append(`<p class="active">1</p>`);
-  }
-};
-
-export const prev_page = () => {
-  if (indexPage() <= 1) {
-    return;
-  }
-  const filtered = filterProducts(
-    products(),
-    searchKeyword(),
-    filterType(),
-    suffix()
-  );
-
-  setIndexPage(indexPage() - 1);
-  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
-};
-
-export const next_page = () => {
-  const filtered = filterProducts(
-    products(),
-    searchKeyword(),
-    filterType(),
-    suffix()
-  );
-
-  if (indexPage() >= pageLimit(filtered.length, 10)) {
-    return;
-  }
-
-  const target = indexPage() + 1;
-  setIndexPage(target);
-  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
-};
-
-export const render = (max_index = 10, page = indexPage()) => {
+export const render = () => {
   const base = products(); // current products
   const filtered = filterProducts(
     base,
@@ -229,7 +69,7 @@ export const render = (max_index = 10, page = indexPage()) => {
         "<tr class='invalid'><td colspan='7'><p>data tidak ditemukan...</p></td></tr>"
       )
     : $("tbody").html(
-        filtered.slice((page - 1) * max_index, page * max_index).map(
+        filtered.map(
           (product) => `   
         <tr>
             <td class="action">

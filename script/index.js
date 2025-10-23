@@ -14,14 +14,10 @@ import {
   state,
   filterListener,
 } from "./modules/utils.js";
-import { getData, deleteData, getDataGudang } from "./modules/api.js";
+import { getData, deleteData } from "./modules/api.js";
 import {
   render,
   filterProducts,
-  renderPaginationButton,
-  pageLimit,
-  prev_page,
-  next_page,
 } from "./modules/render.js";
 
 // base
@@ -33,9 +29,6 @@ export const [searchKeyword, setSearchKeyword] = state("");
 export const [filterType, setFilterType] = state(null);
 export const [suffix, setSuffix] = state(null);
 export const [filteredProducts, setFilteredProducts] = state(products());
-
-// pagination
-export const [indexPage, setIndexPage] = state(1);
 
 // cuman ada "create" sama "edit"
 $(function () {
@@ -96,7 +89,6 @@ $(".pencarian").on("input", (e) => {
   setFilteredProducts(filtered);
   setIndexPage(1);
   render();
-  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
 
 // create form
@@ -129,7 +121,6 @@ $("#delete").on("click", async function () {
       filterType(),
       suffix()
     );
-    renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
     await deleteData(id(), setProducts);
     closePromptForce();
     pushNotification("Data berhasil dihapus!", "error");
@@ -163,14 +154,6 @@ $(document).on("click", ".edit", function () {
   $("#editPrompt").addClass("active");
 });
 
-$(".next-btn").on("click", () => {
-  next_page();
-});
-
-$(".prev-btn").on("click", () => {
-  prev_page();
-});
-
 getData(async (data) => {
   const produk = await data;
   setProducts(produk);
@@ -181,7 +164,7 @@ getData(async (data) => {
     suffix()
   );
   setFilteredProducts(filtered);
-  getDataGudang(async (data) => {
+  getData(async (data) => {
     const gudang = await data;
     for (let i = 0; i < gudang.length; i++) {
       $(".gudang").append(
@@ -190,7 +173,6 @@ getData(async (data) => {
         )
       );
     }
-  });
+  }, "?type=gudang");
   render();
-  renderPaginationButton(filtered, setIndexPage, indexPage(), 10);
 });
