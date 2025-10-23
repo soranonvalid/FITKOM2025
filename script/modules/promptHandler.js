@@ -236,15 +236,12 @@ const validateCheck = (data, type) => {
 
     $(`#${type}Form #input-${type}-kode`).addClass("error");
     setError(`${type}`, error.message);
-<<<<<<< HEAD
-  } else if (kodes.includes(data.kode.toLowerCase()) && type === "create") {
+  } else if (kodes.includes(dat.toLowerCase()) && type === "create") {
     error.status = true;
     error.message = "kode tidak boleh sama";
 
     $(`#${type}Form #input-${type}-kode`).addClass("error");
     setError(`${type}`, error.message);
-=======
->>>>>>> 3cdfca31efd75926ed6262860cf5ba7e0502ad7d
   } else {
     $(`#${type}Form #input-${type}-kode`).removeClass("error");
   }
