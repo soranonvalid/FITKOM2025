@@ -15,10 +15,7 @@ import {
   filterListener,
 } from "./modules/utils.js";
 import { getData, deleteData } from "./modules/api.js";
-import {
-  render,
-  filterProducts,
-} from "./modules/render.js";
+import { render, filterProducts } from "./modules/render.js";
 
 // base
 export const [id, setId] = state(null);
@@ -87,7 +84,6 @@ $(".pencarian").on("input", (e) => {
     suffix()
   );
   setFilteredProducts(filtered);
-  setIndexPage(1);
   render();
 });
 
@@ -114,7 +110,6 @@ $(".editForm").on("submit", async function (e) {
 // delete
 $("#delete").on("click", async function () {
   try {
-    setIndexPage(1);
     const filtered = filterProducts(
       products(),
       searchKeyword(),
@@ -176,3 +171,5 @@ getData(async (data) => {
   }, "?type=gudang");
   render();
 });
+
+"akwoakwa"

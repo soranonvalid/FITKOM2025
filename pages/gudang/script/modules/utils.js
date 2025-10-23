@@ -1,6 +1,6 @@
 import { filterProducts, render } from "./render.js";
 import {
-  products,
+  item,
   filterType,
   setFilterType,
   suffix,
@@ -89,7 +89,7 @@ const filterListener = (type) => {
     }
 
     const filtered = filterProducts(
-      products(),
+      item(),
       searchKeyword(),
       filterType(),
       suffix()
