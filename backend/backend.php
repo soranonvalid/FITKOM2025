@@ -31,7 +31,7 @@ switch ($method) {
             echo json_encode($data);
             break;
         } elseif ($type == 'daftarpengirimanbarang') {
-            $sql = "SELECT a.kodekirim, a.tglkirim, a.nopol, b.nopol, b.namadriver, a.totalqty FROM masterkirim a JOIN kendaraan b ON a.nopol = b.nopol ORDER BY a.id ASC";
+            $sql = "SELECT a.id, a.kodekirim, a.tglkirim, a.nopol, b.nopol, b.namadriver, a.totalqty FROM masterkirim a JOIN kendaraan b ON a.nopol = b.nopol ORDER BY a.id ASC";
             $result = mysqli_query($conn, $sql);
             $data = [];
             while ($row = mysqli_fetch_assoc($result)) {
@@ -77,6 +77,8 @@ switch ($method) {
             $sql = "INSERT INTO `gudang`(`kodegudang`, `namagudang`, `alamat`, `kontak`, `kapasitas`) VALUES ('$kodegudang','$namagudang','$alamat','$kontak','$kapasitas')";
         } elseif (isset($_GET['type']) && $_GET['type'] == 'kendaraan') {
             $sql = "INSERT INTO `kendaraan`(`nopol`, `namakendaraan`, `jeniskendaraan`, `namadriver`, `kontakdriver`, `tahun`, `kapasitas`, `foto`) VALUES ('$nopol','$namakendaraan','$jeniskendaraan','$namadriver','$kontakdriver','$tahun','$kapasitas','$foto')";
+        } elseif (isset($_GET['type']) && $_GET['type'] == 'daftarpengirimanbarang') {
+            $sql = "INSERT INTO ``";
         } else {
             $sql = "INSERT INTO `produk`(`kodeproduk`, `nama`, `satuan`, `harga`, `gambar`, `kodegudang`) VALUES ('$kode','$nama','$satuan','$harga','$gambar','$kodegudang')";
         }
@@ -102,6 +104,9 @@ switch ($method) {
         $satuan = $input['satuan'] ?? null;
         $harga = $input['harga'] ?? null;
         $kodegudang = $input['kodegudang'] ?? null;
+        $namagudang = $input['namagudang'] ?? null;
+        $alamat = $input['alamat'] ?? null;
+        $kontak = $input['kontak'] ?? null;
         $kapasitas = $input['kapasitas'] ?? null;
         $nopol = $input['nopol'] ?? null;
         $namakendaraan = $input['namakendaraan'] ?? null;
@@ -123,7 +128,7 @@ switch ($method) {
         $sql = "";
 
         if (isset($_GET['type']) && $_GET['type'] == 'gudang') {
-            $sql = "INSERT INTO `gudang`(`kodegudang`, `namagudang`, `alamat`, `kontak`, `kapasitas`) VALUES ('$kodegudang','$namagudang','$alamat','$kontak','$kapasitas')";
+            $sql = "UPDATE `gudang` SET `kodegudang`='$kodegudang', `namagudang`='$namagudang', `alamat`='$alamat', `kontak`='$kontak', `kapasitas`='$kapasitas' WHERE `gudang`.`id` = '$id'";
         } elseif (isset($_GET['type']) && $_GET['type'] == 'kendaraan') {
             $sql = "UPDATE `kendaraan` SET `nopol`='$nopol', `namakendaraan`='$namakendaraan', `jeniskendaraan`='$jeniskendaraan', `namadriver`='$namadriver', `kontakdriver`='$kontakdriver', `tahun`='$tahun', `kapasitas`='$kapasitas', `foto`='$foto' WHERE `kendaraan`.`id` = '$id'";
         } else {
@@ -151,7 +156,15 @@ switch ($method) {
             break;
         }
 
-        $sql = "DELETE FROM `produk` WHERE `id` = '$id'";
+        $sql = "";
+        if (isset($_GET['type']) && $_GET['type'] == 'gudang') {
+            $sql = "DELETE FROM `gudang` WHERE `id` = '$id'";
+        } elseif (isset($_GET['type']) && $_GET['type'] == 'kendaraan') {
+            $sql = "DELETE FROM `kendaraan` WHERE `id` = '$id'";
+        } else {
+            $sql = "DELETE FROM `produk` WHERE `id` = '$id'";
+        }
+
         $ok = mysqli_query($conn, $sql);
 
         echo json_encode([
