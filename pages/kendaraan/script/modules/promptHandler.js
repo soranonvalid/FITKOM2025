@@ -115,18 +115,18 @@ const validateCheck = (data, type) => {
     $(`#${type}ErrorNote`).text(message);
   };
 
-  // kontak
-  if (!data.kontak || !data.kontak.toString().trim()) {
+  // jeniskendaraan (teks, wajib)
+  if (!data.jeniskendaraan || !data.jeniskendaraan.toString().trim()) {
     error.status = true;
-    error.message = "kontak tidak boleh kosong";
+    error.message = "Jenis kendaraan tidak boleh kosong";
 
-    $(`#${type}Form #input-${type}-kontak`).addClass("error");
+    $(`#${type}Form #input-${type}-jeniskendaraan`).addClass("error");
     setError(`${type}`, error.message);
   } else {
-    $(`#${type}Form #input-${type}-kontak`).removeClass("error");
+    $(`#${type}Form #input-${type}-jeniskendaraan`).removeClass("error");
   }
 
-  // kapasitas
+  // kapasitas (angka, plain number)
   const kapasitas = parseInt(
     (data.kapasitas || "").toString().replace(/\D/g, ""),
     10
@@ -151,37 +151,129 @@ const validateCheck = (data, type) => {
     }
   }
 
-  // alamat
-  if (!data.alamat || !data.alamat.toString().trim()) {
+  // kontakdriver (angka, plain number, 7-15 digit)
+  const kontakDriverDigits = (data.kontakdriver || "")
+    .toString()
+    .replace(/\D/g, "");
+  if (!kontakDriverDigits) {
     error.status = true;
-    error.message = "Alamat tidak boleh kosong";
+    error.message = "Kontak driver tidak boleh kosong";
 
-    $(`#${type}Form #input-${type}-alamat`).addClass("error");
+    $(`#${type}Form #input-${type}-kontakdriver`).addClass("error");
     setError(`${type}`, error.message);
   } else {
-    $(`#${type}Form #input-${type}-alamat`).removeClass("error");
+    if (kontakDriverDigits.length < 7 || kontakDriverDigits.length > 15) {
+      error.status = true;
+      error.message = "Kontak driver tidak valid (7-15 digit)";
+
+      $(`#${type}Form #input-${type}-kontakdriver`).addClass("error");
+      setError(`${type}`, error.message);
+    } else {
+      $(`#${type}Form #input-${type}-kontakdriver`).removeClass("error");
+    }
   }
 
-  // namagudang
-  if (!data.namagudang || !data.namagudang.toString().trim()) {
+  // namadriver (teks, wajib, max 200)
+  if (!data.namadriver || !data.namadriver.toString().trim()) {
     error.status = true;
-    error.message = "Gudang tidak boleh kosong";
+    error.message = "Nama driver tidak boleh kosong";
 
-    $(`#${type}Form #input-${type}-namagudang`).addClass("error");
+    $(`#${type}Form #input-${type}-namadriver`).addClass("error");
     setError(`${type}`, error.message);
   } else {
-    $(`#${type}Form #input-${type}-namagudang`).removeClass("error");
+    const namaDriver = data.namadriver.toString().trim();
+    if (namaDriver.length > 200) {
+      error.status = true;
+      error.message = "Nama driver terlalu panjang (maks 200 karakter)";
+
+      $(`#${type}Form #input-${type}-namadriver`).addClass("error");
+      setError(`${type}`, error.message);
+    } else {
+      $(`#${type}Form #input-${type}-namadriver`).removeClass("error");
+    }
   }
 
-  // kodegudang
-  if (!data.kodegudang || !data.kodegudang.toString().trim()) {
+  // namakendaraan (teks, wajib, max 250)
+  if (!data.namakendaraan || !data.namakendaraan.toString().trim()) {
     error.status = true;
-    error.message = "Kode gudang tidak boleh kosong";
+    error.message = "Nama kendaraan tidak boleh kosong";
 
-    $(`#${type}Form #input-${type}-kodegudang`).addClass("error");
+    $(`#${type}Form #input-${type}-namakendaraan`).addClass("error");
     setError(`${type}`, error.message);
   } else {
-    $(`#${type}Form #input-${type}-kodegudang`).removeClass("error");
+    const namaKend = data.namakendaraan.toString().trim();
+    if (namaKend.length > 250) {
+      error.status = true;
+      error.message = "Nama kendaraan terlalu panjang (maks 250 karakter)";
+
+      $(`#${type}Form #input-${type}-namakendaraan`).addClass("error");
+      setError(`${type}`, error.message);
+    } else {
+      $(`#${type}Form #input-${type}-namakendaraan`).removeClass("error");
+    }
+  }
+
+  // nopol (teks, wajib, simple pattern)
+  if (!data.nopol || !data.nopol.toString().trim()) {
+    error.status = true;
+    error.message = "No. polisi tidak boleh kosong";
+
+    $(`#${type}Form #input-${type}-nopol`).addClass("error");
+    setError(`${type}`, error.message);
+  } else {
+    const nopol = data.nopol.toString().trim();
+    // pola sederhana: huruf/angka/spasi/dash, max 15
+    if (!/^[A-Za-z0-9\s-]{1,15}$/.test(nopol)) {
+      error.status = true;
+      error.message = "No. polisi tidak valid";
+
+      $(`#${type}Form #input-${type}-nopol`).addClass("error");
+      setError(`${type}`, error.message);
+    } else {
+      $(`#${type}Form #input-${type}-nopol`).removeClass("error");
+    }
+  }
+
+  // tahun (tanggal dalam format YYYY-MM-DD, tahun wajar 1900..current year)
+  if (!data.tahun || !data.tahun.toString().trim()) {
+    error.status = true;
+    error.message = "Tahun tidak boleh kosong";
+
+    $(`#${type}Form #input-${type}-tahun`).addClass("error");
+    setError(`${type}`, error.message);
+  } else {
+    const t = data.tahun.toString().trim();
+    // cek format ISO pendek
+    const match = t.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) {
+      error.status = true;
+      error.message = "Tahun harus dalam format YYYY-MM-DD";
+
+      $(`#${type}Form #input-${type}-tahun`).addClass("error");
+      setError(`${type}`, error.message);
+    } else {
+      const year = parseInt(match[1], 10);
+      const month = parseInt(match[2], 10);
+      const day = parseInt(match[3], 10);
+      const dateObj = new Date(year, month - 1, day);
+
+      const currentYear = 2025; // sesuai konteks saat ini
+      if (
+        dateObj.getFullYear() !== year ||
+        dateObj.getMonth() + 1 !== month ||
+        dateObj.getDate() !== day ||
+        year < 1900 ||
+        year > currentYear
+      ) {
+        error.status = true;
+        error.message = "Tahun tidak valid";
+
+        $(`#${type}Form #input-${type}-tahun`).addClass("error");
+        setError(`${type}`, error.message);
+      } else {
+        $(`#${type}Form #input-${type}-tahun`).removeClass("error");
+      }
+    }
   }
 
   return error;
@@ -218,11 +310,13 @@ const createDataHandler = async (data) => {
   try {
     await postData(
       {
-        kodegudang: data.kodegudang,
-        namagudang: data.namagudang,
-        alamat: data.alamat,
+        jeniskendaraan: data.jeniskendaraan,
         kapasitas: data.kapasitas,
-        kontak: data.kontak,
+        kontakdriver: data.kontakdriver,
+        namadriver: data.namadriver,
+        namakendaraan: data.namakendaraan,
+        nopol: data.nopol,
+        tahun: data.tahun,
       },
       setItem
     );
@@ -241,11 +335,13 @@ const editDataHandler = async (data) => {
     await updateData(
       {
         id: id(),
-        kodegudang: data.kodegudang,
-        namagudang: data.namagudang,
-        alamat: data.alamat,
+        jeniskendaraan: data.jeniskendaraan,
         kapasitas: data.kapasitas,
-        kontak: data.kontak,
+        kontakdriver: data.kontakdriver,
+        namadriver: data.namadriver,
+        namakendaraan: data.namakendaraan,
+        nopol: data.nopol,
+        tahun: data.tahun,
       },
       setItem
     );

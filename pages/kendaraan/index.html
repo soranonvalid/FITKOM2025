@@ -49,53 +49,73 @@
           </svg>
         </button>
         <form id="createForm" class="createForm">
-          <div id="input-create-kodegudang" class="input-group">
-            <label for="createkodegudang">Kode</label>
+          <div id="input-create-jeniskendaraan" class="input-group">
+            <label for="createjeniskendaraan">Jenis Kendaraan</label>
             <input
-              placeholder="G00 ..."
+              placeholder="Truk ..."
               type="text"
-              name="kodegudang"
-              id="createkodegudang"
-              class="validate"
-            />
-          </div>
-          <div id="input-create-namagudang" class="input-group">
-            <label for="createnamagudang">Gudang</label>
-            <input
-              type="text"
-              placeholder="Gudang ..."
-              name="namagudang"
-              id="createnamagudang"
-              class="validate"
-            />
-          </div>
-          <div id="input-create-alamat" class="input-group">
-            <label for="createalamat">Alamat</label>
-            <input
-              type="text"
-              placeholder="Alamat ..."
-              name="alamat"
-              id="createalamat"
+              name="jeniskendaraan"
+              id="createjeniskendaraan"
               class="validate"
             />
           </div>
           <div id="input-create-kapasitas" class="input-group">
             <label for="createkapasitas">Kapasitas</label>
             <input
-              type="number"
-              placeholder="0"
+              placeholder="0 ..."
+              type="text"
               name="kapasitas"
               id="createkapasitas"
               class="validate"
             />
           </div>
-          <div id="input-create-kontak" class="input-group">
-            <label for="createakontak">Kontak</label>
+          <div id="input-create-kontakdriver" class="input-group">
+            <label for="createkontakdriver">Kontak Driver</label>
             <input
+              placeholder="+62 ..."
               type="text"
-              placeholder="kontak ..."
-              name="kontak"
-              id="createkontak"
+              name="kontakdriver"
+              id="createkontakdriver"
+              class="validate"
+            />
+          </div>
+          <div id="input-create-namadriver" class="input-group">
+            <label for="createnamadriver">Nama Driver</label>
+            <input
+              placeholder="Nama ..."
+              type="text"
+              name="namadriver"
+              id="createnamadriver"
+              class="validate"
+            />
+          </div>
+          <div id="input-create-namakendaraan" class="input-group">
+            <label for="createnamakendaraan">Nama Kendaraan</label>
+            <input
+              placeholder="Truk ..."
+              type="text"
+              name="namakendaraan"
+              id="createnamakendaraan"
+              class="validate"
+            />
+          </div>
+          <div id="input-create-nopol" class="input-group">
+            <label for="createnopol">Nomor Polisi</label>
+            <input
+              placeholder="No. Polisi ..."
+              type="text"
+              name="nopol"
+              id="createnopol"
+              class="validate"
+            />
+          </div>
+          <div id="input-create-tahun" class="input-group">
+            <label for="createtahun">Tahun</label>
+            <input
+              placeholder="Tahun ..."
+              type="date"
+              name="tahun"
+              id="createtahun"
               class="validate"
             />
           </div>
@@ -105,7 +125,6 @@
           </div>
         </form>
       </div>
-
       <!-- Edit Prompt -->
       <div id="editPrompt" class="prompt">
         <button class="close default">
@@ -201,7 +220,7 @@
     </nav>
     <main>
       <header>
-        <h1>Produk</h1>
+        <h1>Kendaraan</h1>
         <div class="filter-container">
           <div class="filter-produk">
             <input
@@ -299,8 +318,8 @@
             <tr>
               <th class="action">Action</th>
               <th>
-                <div id="filter-kodegudang" class="wrapper filter-inquire">
-                  <span class="off">Kode</span>
+                <div id="filter-nopol" class="wrapper filter-inquire">
+                  <span class="off">Nopol</span>
                   <label for="filter" class="label-toggle"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -321,7 +340,7 @@
                 </div>
               </th>
               <th>
-                <div id="filter-namagudang" class="wrapper filter-inquire">
+                <div id="filter-namakendaraan" class="wrapper filter-inquire">
                   <span class="off">Nama</span>
                   <label for="filter" class="label-toggle"
                     ><svg
@@ -343,8 +362,30 @@
                 </div>
               </th>
               <th>
-                <div id="filter-alamat" class="wrapper filter-inquire">
-                  <span class="off">Alamat</span>
+                <div id="filter-jenis" class="wrapper filter-inquire">
+                  <span class="off">Jenis</span>
+                  <label for="filter" class="label-toggle"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down"
+                    >
+                      <path d="m7 15 5 5 5-5" />
+                      <path d="m7 9 5-5 5 5" />
+                    </svg>
+                  </label>
+                </div>
+              </th>
+              <th>
+                <div id="filter-Tahun" class="wrapper filter-inquire">
+                  <span class="off">Tahun</span>
                   <label for="filter" class="label-toggle"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -366,7 +407,7 @@
               </th>
               <th>
                 <div id="filter-kapasitas" class="wrapper filter-inquire">
-                  <span class="off">Kapasitas (m3)</span>
+                  <span class="off">Kapasitas (Kg)</span>
                   <label for="filter" class="label-toggle"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -387,7 +428,29 @@
                 </div>
               </th>
               <th>
-                <div id="filter-kontak" class="wrapper filter-inquire">
+                <div id="filter-namadriver" class="wrapper filter-inquire">
+                  <span class="off">Driver</span>
+                  <label for="filter" class="label-toggle"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down"
+                    >
+                      <path d="m7 15 5 5 5-5" />
+                      <path d="m7 9 5-5 5 5" />
+                    </svg>
+                  </label>
+                </div>
+              </th>
+              <th>
+                <div id="filter-kontakdriver" class="wrapper filter-inquire">
                   <span class="off">Kontak</span>
                   <label for="filter" class="label-toggle"
                     ><svg
