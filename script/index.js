@@ -151,7 +151,7 @@ $(document).on("click", ".edit", function () {
   console.log(selectedProduct);
 
   if (selectedProduct) {
-    $("#editkode").val(selectedProduct.kode);
+    $("#editkode").val(selectedProduct.kodeproduk);
     $("#editnama").val(selectedProduct.nama);
     $("#editsatuan").val(selectedProduct.satuan);
     $("#editgudang").val(selectedProduct.kodegudang);
