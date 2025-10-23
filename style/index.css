@@ -637,6 +637,11 @@ footer {
   justify-content: space-between;
   align-items: center;
 
+  @media screen and (max-width: 740px) {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
   .index_buttons {
     display: flex;
     align-items: center;

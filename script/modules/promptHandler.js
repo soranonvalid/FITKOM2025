@@ -1,6 +1,6 @@
 import { convertNumber, convertToBase64, pushNotification } from "./utils.js";
 import { postData, updateData } from "./api.js";
-import { id, setId, setProducts } from "../index.js";
+import { id, setId, setProducts, products } from "../index.js";
 
 // early clear error
 const clearError = (type) => {
@@ -116,6 +116,11 @@ const validateCheck = (data, type) => {
     $(`#${type}ErrorNote`).text(message);
   };
 
+  let kodes = [];
+  kodes = products().map((k) => {
+    return k?.kode.toLowerCase();
+  });
+
   // gambar
   if (data[`${type}gambar`] === "upload") {
     if (!data.imageupload || data.imageupload.name === "") {
@@ -225,6 +230,12 @@ const validateCheck = (data, type) => {
   if (!data.kode || data.kode.trim() === "") {
     error.status = true;
     error.message = "kode tidak boleh kosong";
+
+    $(`#${type}Form #input-${type}-kode`).addClass("error");
+    setError(`${type}`, error.message);
+  } else if (kodes.includes(data.kode.toLowerCase())) {
+    error.status = true;
+    error.message = "kode tidak boleh sama";
 
     $(`#${type}Form #input-${type}-kode`).addClass("error");
     setError(`${type}`, error.message);
