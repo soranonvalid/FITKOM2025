@@ -240,11 +240,10 @@ export const render = (max_index = 10, page = indexPage()) => {
             <td id="kode">
                 <p class="no-bg">${product?.kode}</p>
             </td>
+            <td class="gambar" id="gambar">                    
+            <img src="${product?.gambar}" alt="sayur" class="img-render" /></td>
             <td id="nama">
                 <div>
-                    <img src="${
-                      product?.gambar
-                    }" alt="sayur" class="img-render" />
                     <p class="no-bg">${product?.nama}</p>
                 </div>
             </td>
