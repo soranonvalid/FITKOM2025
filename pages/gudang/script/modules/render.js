@@ -77,17 +77,15 @@ export const render = () => {
             </button>
             </td>
             <td id="kode">
-                <p class="no-bg">${i?.kodeproduk}</p>
+                <p class="no-bg">${i?.kodegudang}</p>
             </td>
-            <td class="gambar" id="gambar">                    
-            <img src="${i?.gambar}" alt="sayur" class="img-render" /></td>
             <td id="nama">
                 <div>
-                    <p class="no-bg">${i?.nama}</p>
+                    <p class="no-bg">${i?.namagudang}</p>
                 </div>
             </td>
             <td id="gudang">
-                <p class="no-bg">${i?.namagudang}</p>
+                <p class="no-bg">${i?.alamat}</p>
             </td>
             <td id="satuan">
                 <p class="no-bg">${i?.satuan}</p>

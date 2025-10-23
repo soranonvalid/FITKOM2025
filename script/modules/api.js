@@ -1,7 +1,7 @@
 const getData = async (state, types = "") => {
   try {
     await fetch(
-      window.location.origin + "/bismillah/backend/backend.php" + types,
+      window.location.origin + "/timbkodein/backend/backend.php" + types,
       {
         headers: { "Content-Type": "application/json" },
       }

@@ -178,6 +178,7 @@ table th {
 
     > span {
       cursor: pointer;
+      white-space: nowrap;
     }
   }
 }

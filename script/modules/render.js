@@ -30,8 +30,8 @@ export function filterProducts(products, keyword = "", type, suffix) {
     });
   } else if (type === "kode") {
     return searched.sort((a, b) => {
-      if (suffix === "highest") return a.kode.localeCompare(b.kode);
-      if (suffix === "lowest") return b.kode.localeCompare(a.kode);
+      if (suffix === "highest") return a.kodeproduk.localeCompare(b.kodeproduk);
+      if (suffix === "lowest") return b.kodeproduk.localeCompare(a.kodeproduk);
       return 0;
     });
   } else if (type === "satuan") {
