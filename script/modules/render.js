@@ -238,7 +238,7 @@ export const render = (max_index = 10, page = indexPage()) => {
             </button>
             </td>
             <td id="kode">
-                <p class="no-bg">${product?.kode}</p>
+                <p class="no-bg">${product?.kodeproduk}</p>
             </td>
             <td id="nama">
                 <div>

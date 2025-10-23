@@ -118,7 +118,7 @@ const validateCheck = (data, type) => {
 
   let kodes = [];
   kodes = products().map((k) => {
-    return k?.kode.toLowerCase();
+    return k.kodeproduk.toLowerCase();
   });
 
   // gambar

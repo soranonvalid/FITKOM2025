@@ -12,7 +12,7 @@ $input = json_decode($raw, true);
 switch ($method) {
     case 'GET':
         if (isset($_GET['type']) && $_GET['type'] == 'gudang') {
-            $sql = "SELECT * FROM tb_gudang";
+            $sql = "SELECT * FROM gudang";
             $result = mysqli_query($conn, $sql);
             $data = [];
             while ($row = mysqli_fetch_assoc($result)) {
@@ -21,8 +21,7 @@ switch ($method) {
             echo json_encode($data);
             break;
         } else {
-            // Return products ordered by id as requested
-            $sql = "SELECT p.id, p.kode, p.nama, p.satuan, p.harga, p.gambar, p.kodegudang, g.namagudang, g.golongan FROM tb_produk p JOIN tb_gudang g ON p.kodegudang = g.kodegudang ORDER BY p.id ASC";
+            $sql = "SELECT p.id, p.kodeproduk, p.nama, p.satuan, p.harga, p.gambar, g.namagudang FROM produk p JOIN gudang g ON p.kodegudang = g.kodegudang ORDER BY p.id ASC";
             $result = mysqli_query($conn, $sql);
             $data = [];
             while ($row = mysqli_fetch_assoc($result)) {
@@ -50,7 +49,7 @@ switch ($method) {
             break;
         }
 
-        $sql = "INSERT INTO `tb_produk`(`kode`, `nama`, `satuan`, `harga`, `gambar`, `kodegudang`) VALUES ('$kode','$nama','$satuan','$harga','$gambar','$kodegudang')";
+        $sql = "INSERT INTO `produk`(`kodeproduk`, `nama`, `satuan`, `harga`, `gambar`, `kodegudang`) VALUES ('$kode','$nama','$satuan','$harga','$gambar','$kodegudang')";
         $ok = mysqli_query($conn, $sql);
 
         if (!$ok) {
@@ -99,7 +98,7 @@ switch ($method) {
             break;
         }
 
-        $sql = "UPDATE `tb_produk` SET `gambar`='$gambar', `kode`='$kode',`nama`='$nama',`satuan`='$satuan',`harga`='$harga', `kodegudang`='$kodegudang' WHERE `tb_produk`.`id` = '$id'";
+        $sql = "UPDATE `produk` SET `gambar`='$gambar', `kodeproduk`='$kode',`nama`='$nama',`satuan`='$satuan',`harga`='$harga', `kodegudang`='$kodegudang' WHERE `produk`.`id` = '$id'";
         $ok = mysqli_query($conn, $sql);
 
         echo json_encode([
@@ -121,7 +120,7 @@ switch ($method) {
             break;
         }
 
-        $sql = "DELETE FROM `tb_produk` WHERE `id` = '$id'";
+        $sql = "DELETE FROM `produk` WHERE `id` = '$id'";
         $ok = mysqli_query($conn, $sql);
 
         echo json_encode([
