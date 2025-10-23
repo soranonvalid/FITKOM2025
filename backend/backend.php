@@ -11,7 +11,8 @@ $input = json_decode($raw, true);
 
 switch ($method) {
     case 'GET':
-        if (isset($_GET['type']) && $_GET['type'] == 'gudang') {
+        $type = $_GET['type'] ?? '';
+        if ($type == 'gudang') {
             $sql = "SELECT * FROM gudang";
             $result = mysqli_query($conn, $sql);
             $data = [];
@@ -20,7 +21,7 @@ switch ($method) {
             }
             echo json_encode($data);
             break;
-        } elseif (isset($_GET['type']) && $_GET['type'] == 'kendaraan') {
+        } elseif ($type == 'kendaraan') {
             $sql = "SELECT * FROM kendaraan";
             $result = mysqli_query($conn, $sql);
             $data = [];
@@ -29,7 +30,7 @@ switch ($method) {
             }
             echo json_encode($data);
             break;
-        } elseif (isset($_GET['type']) && $_GET['type'] == 'daftarpengirimanbarang') {
+        } elseif ($type == 'daftarpengirimanbarang') {
             $sql = "SELECT a.kodekirim, a.tglkirim, a.nopol, b.nopol, b.namadriver, a.totalqty FROM masterkirim a JOIN kendaraan b ON a.nopol = b.nopol ORDER BY a.id ASC";
             $result = mysqli_query($conn, $sql);
             $data = [];
@@ -58,16 +59,27 @@ switch ($method) {
         $satuan = $input['satuan'] ?? null;
         $harga = $input['harga'] ?? null;
         $kodegudang = $input['kodegudang'] ?? null;
+        $namagudang = $input['namagudang'] ?? null;
+        $alamat = $input['alamat'] ?? null;
+        $kontak = $input['kontak'] ?? null;
+        $kapasitas = $input['kapasitas'] ?? null;
+        $nopol = $input['nopol'] ?? null;
+        $namakendaraan = $input['namakendaraan'] ?? null;
+        $jeniskendaraan = $input['jeniskendaraan'] ?? null;
+        $namadriver = $input['namadriver'] ?? null;
+        $kontakdriver = $input['kontakdriver'] ?? null;
+        $tahun = $input['tahun'] ?? null;
+        $foto = $input['foto'] ?? null;
 
-        if (!$gambar || !$kode || !$nama || !$satuan || !$harga || !$kodegudang) {
-            echo json_encode([
-                "status" => "error",
-                "message" => "Data tidak lengkap"
-            ]);
-            break;
+        $sql = "";
+
+        if (isset($_GET['type']) && $_GET['type'] == 'gudang') {
+            $sql = "INSERT INTO `gudang`(`kodegudang`, `namagudang`, `alamat`, `kontak`, `kapasitas`) VALUES ('$kodegudang','$namagudang','$alamat','$kontak','$kapasitas')";
+        } elseif (isset($_GET['type']) && $_GET['type'] == 'kendaraan') {
+            $sql = "INSERT INTO `kendaraan`(`nopol`, `namakendaraan`, `jeniskendaraan`, `namadriver`, `kontakdriver`, `tahun`, `kapasitas`, `foto`) VALUES ('$nopol','$namakendaraan','$jeniskendaraan','$namadriver','$kontakdriver','$tahun','$kapasitas','$foto')";
+        } else {
+            $sql = "INSERT INTO `produk`(`kodeproduk`, `nama`, `satuan`, `harga`, `gambar`, `kodegudang`) VALUES ('$kode','$nama','$satuan','$harga','$gambar','$kodegudang')";
         }
-
-        $sql = "INSERT INTO `produk`(`kodeproduk`, `nama`, `satuan`, `harga`, `gambar`, `kodegudang`) VALUES ('$kode','$nama','$satuan','$harga','$gambar','$kodegudang')";
         $ok = mysqli_query($conn, $sql);
 
         if (!$ok) {
@@ -78,14 +90,6 @@ switch ($method) {
             echo json_encode([
                 "status" => "success",
                 "message" => "Data diterima",
-                "data" => [
-                    "gambar" => $gambar,
-                    "kode" => $kode,
-                    "nama" => $nama,
-                    "satuan" => $satuan,
-                    "harga" => $harga,
-                    "kodegudang" => $kodegudang
-                ],
             ]);
         }
         break;
@@ -98,6 +102,14 @@ switch ($method) {
         $satuan = $input['satuan'] ?? null;
         $harga = $input['harga'] ?? null;
         $kodegudang = $input['kodegudang'] ?? null;
+        $kapasitas = $input['kapasitas'] ?? null;
+        $nopol = $input['nopol'] ?? null;
+        $namakendaraan = $input['namakendaraan'] ?? null;
+        $jeniskendaraan = $input['jeniskendaraan'] ?? null;
+        $namadriver = $input['namadriver'] ?? null;
+        $kontakdriver = $input['kontakdriver'] ?? null;
+        $tahun = $input['tahun'] ?? null;
+        $foto = $input['foto'] ?? null;
 
         if (!$id) {
             echo json_encode([
@@ -108,15 +120,16 @@ switch ($method) {
             break;
         }
 
-        if (!$gambar || !$kode || !$nama || !$satuan || !$harga || !$kodegudang) {
-            echo json_encode([
-                "status" => "error",
-                "message" => "Data tidak lengkap"
-            ]);
-            break;
-        }
+        $sql = "";
 
-        $sql = "UPDATE `produk` SET `gambar`='$gambar', `kodeproduk`='$kode',`nama`='$nama',`satuan`='$satuan',`harga`='$harga', `kodegudang`='$kodegudang' WHERE `produk`.`id` = '$id'";
+        if (isset($_GET['type']) && $_GET['type'] == 'gudang') {
+            $sql = "INSERT INTO `gudang`(`kodegudang`, `namagudang`, `alamat`, `kontak`, `kapasitas`) VALUES ('$kodegudang','$namagudang','$alamat','$kontak','$kapasitas')";
+        } elseif (isset($_GET['type']) && $_GET['type'] == 'kendaraan') {
+            $sql = "UPDATE `kendaraan` SET `nopol`='$nopol', `namakendaraan`='$namakendaraan', `jeniskendaraan`='$jeniskendaraan', `namadriver`='$namadriver', `kontakdriver`='$kontakdriver', `tahun`='$tahun', `kapasitas`='$kapasitas', `foto`='$foto' WHERE `kendaraan`.`id` = '$id'";
+        } else {
+            $sql = "UPDATE `produk` SET `gambar`='$gambar', `kodeproduk`='$kode',`nama`='$nama',`satuan`='$satuan',`harga`='$harga', `kodegudang`='$kodegudang' WHERE `produk`.`id` = '$id'";
+        }
+        
         $ok = mysqli_query($conn, $sql);
 
         echo json_encode([
