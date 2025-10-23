@@ -20,6 +20,24 @@ switch ($method) {
             }
             echo json_encode($data);
             break;
+        } elseif (isset($_GET['type']) && $_GET['type'] == 'kendaraan') {
+            $sql = "SELECT * FROM kendaraan";
+            $result = mysqli_query($conn, $sql);
+            $data = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $data[] = $row;
+            }
+            echo json_encode($data);
+            break;
+        } elseif (isset($_GET['type']) && $_GET['type'] == 'daftarpengirimanbarang') {
+            $sql = "SELECT a.kodekirim, a.tglkirim, a.nopol, b.nopol, b.namadriver, a.totalqty FROM masterkirim a JOIN kendaraan b ON a.nopol = b.nopol ORDER BY a.id ASC";
+            $result = mysqli_query($conn, $sql);
+            $data = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $data[] = $row;
+            }
+            echo json_encode($data);
+            break;
         } else {
             $sql = "SELECT p.id, p.kodeproduk, p.nama, p.satuan, p.harga, p.gambar, g.kodegudang, g.namagudang FROM produk p JOIN gudang g ON p.kodegudang = g.kodegudang ORDER BY p.id ASC";
             $result = mysqli_query($conn, $sql);
