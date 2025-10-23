@@ -116,6 +116,14 @@ const validateCheck = (data, type) => {
     $(`#${type}ErrorNote`).text(message);
   };
 
+<<<<<<< HEAD
+  let kodes = [];
+  kodes = products().map((k) => {
+    return k?.kode.toLowerCase();
+  });
+
+=======
+>>>>>>> 3cdfca31efd75926ed6262860cf5ba7e0502ad7d
   // gambar
   if (data[`${type}gambar`] === "upload") {
     if (!data.imageupload || data.imageupload.name === "") {
@@ -225,6 +233,12 @@ const validateCheck = (data, type) => {
   if (!data.kode || data.kode.trim() === "") {
     error.status = true;
     error.message = "kode tidak boleh kosong";
+
+    $(`#${type}Form #input-${type}-kode`).addClass("error");
+    setError(`${type}`, error.message);
+  } else if (kodes.includes(dat.toLowerCase()) && type === "create") {
+    error.status = true;
+    error.message = "kode tidak boleh sama";
 
     $(`#${type}Form #input-${type}-kode`).addClass("error");
     setError(`${type}`, error.message);
