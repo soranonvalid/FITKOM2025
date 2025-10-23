@@ -146,59 +146,81 @@
         </button>
 
         <form class="editForm">
-          <div id="input-edit-kodegudang" class="input-group">
-            <label for="editkodegudang">Kode</label>
+          <div id="input-edit-jeniskendaraan" class="input-group">
+            <label for="editjeniskendaraan">Jenis Kendaraan</label>
             <input
-              placeholder="G00 ..."
+              placeholder="Truk ..."
               type="text"
-              name="kodegudang"
-              id="editkodegudang"
+              name="jeniskendaraan"
+              id="editjeniskendaraan"
               class="validate"
             />
           </div>
-          <div id="input-edit-namagudang" class="input-group">
-            <label for="editnamagudang">Gudang</label>
-            <input
-              placeholder="Gudang ..."
-              name="namagudang"
-              id="editnamagudang"
-              class="validate"
-            />
-          </div>
-          <div id="input-edit-alamat" class="input-group">
-            <label for="editalamat">Alamat</label>
-            <input
-              placeholder="Alamat ..."
-              name="alamat"
-              id="editalamat"
-              class="validate"
-            />
-          </div>
+
           <div id="input-edit-kapasitas" class="input-group">
             <label for="editkapasitas">Kapasitas</label>
             <input
-              type="number"
-              placeholder="0"
+              placeholder="6 Ton ..."
+              type="text"
               name="kapasitas"
               id="editkapasitas"
               class="validate"
             />
           </div>
-          <div id="input-edit-kontak" class="input-group">
-            <label for="editkontak">Kontak</label>
+
+          <div id="input-edit-kontakdriver" class="input-group">
+            <label for="editkontakdriver">Kontak Driver</label>
             <input
-              placeholder="kontak ..."
-              name="kontak"
-              id="editkontak"
+              placeholder="081298765432 ..."
+              type="text"
+              name="kontakdriver"
+              id="editkontakdriver"
               class="validate"
             />
           </div>
-          <p class="errorNote" id="editErrorNote"></p>
-          <div class="button-group">
-            <button class="warning" id="delete" type="button">Delete</button>
-            <button class="primary" type="submit" class="simpan-edit-btn">
-              Simpan
-            </button>
+
+          <div id="input-edit-namadriver" class="input-group">
+            <label for="editnamadriver">Nama Driver</label>
+            <input
+              placeholder="Fajar Nugroho ..."
+              type="text"
+              name="namadriver"
+              id="editnamadriver"
+              class="validate"
+            />
+          </div>
+
+          <div id="input-edit-namakendaraan" class="input-group">
+            <label for="editnamakendaraan">Nama Kendaraan</label>
+            <input
+              placeholder="Truk Panen Jagung ..."
+              type="text"
+              name="namakendaraan"
+              id="editnamakendaraan"
+              class="validate"
+            />
+          </div>
+
+          <div id="input-edit-nopol" class="input-group">
+            <label for="editnopol">Nomor Polisi</label>
+            <input
+              placeholder="AB 2345 XY ..."
+              type="text"
+              name="nopol"
+              id="editnopol"
+              class="validate"
+            />
+          </div>
+
+          <div id="input-edit-tahun" class="input-group">
+            <label for="edittahun">Tahun</label>
+            <input
+              placeholder="2017-06-20 ..."
+              type="date"
+              name="tahun"
+              id="edittahun"
+              class="validate"
+            />
           </div>
         </form>
       </div>
@@ -362,7 +384,7 @@
                 </div>
               </th>
               <th>
-                <div id="filter-jenis" class="wrapper filter-inquire">
+                <div id="filter-jeniskendaraan" class="wrapper filter-inquire">
                   <span class="off">Jenis</span>
                   <label for="filter" class="label-toggle"
                     ><svg
@@ -384,8 +406,8 @@
                 </div>
               </th>
               <th>
-                <div id="filter-Tahun" class="wrapper filter-inquire">
-                  <span class="off">Tahun</span>
+                <div id="filter-tahun" class="wrapper filter-inquire">
+                  <span class="off">tahun</span>
                   <label for="filter" class="label-toggle"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"

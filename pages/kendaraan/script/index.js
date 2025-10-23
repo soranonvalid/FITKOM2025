@@ -30,10 +30,12 @@ $(function () {
   realTimeKapasitas("edit");
 
   // filter attachment
-  filterListener("kodegudang");
-  filterListener("namagudang");
-  filterListener("alamat");
-  filterListener("kontak");
+  filterListener("nopol");
+  filterListener("tahun");
+  filterListener("namakendaraan");
+  filterListener("jeniskendaraan");
+  filterListener("namadriver");
+  filterListener("kontakdriver");
   filterListener("kapasitas");
 });
 
@@ -125,12 +127,13 @@ $(document).on("click", ".edit", function () {
   console.log(selectedProduct);
 
   if (selectedProduct) {
-    $("#editkodegudang").val(selectedProduct.kodegudang);
-    $("#editnamagudang").val(selectedProduct.namagudang);
+    $("#editnopol").val(selectedProduct.nopol);
+    $("#editnamakendaraan").val(selectedProduct.namakendaraan);
+    $("#editjeniskendaraan").val(selectedProduct.jeniskendaraan);
+    $("#editnamadriver").val(selectedProduct.namadriver);
+    $("#editkontakdriver").val(selectedProduct.kontakdriver);
+    $("#edittahun").val(selectedProduct.tahun);
     $("#editkapasitas").val(selectedProduct.kapasitas);
-    $("#editalamat").val(selectedProduct.alamat);
-    $("#editkontak").val(selectedProduct.kontak);
-    $("#editimageurl").val(selectedProduct.gambar);
   }
 
   $(".prompt-frame").addClass("active");

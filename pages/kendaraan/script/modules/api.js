@@ -18,7 +18,7 @@ const getData = async (state, types = "?type=kendaraan") => {
 
 const deleteData = async (id, state) => {
   try {
-    await fetch("./backend/backend.php", {
+    await fetch("./backend/backend.php?type=kendaraan", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
@@ -35,7 +35,7 @@ const deleteData = async (id, state) => {
 
 const postData = async (data, state) => {
   try {
-    await fetch("./backend/backend.php", {
+    await fetch("./backend/backend.php?type=kendaraan", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -52,7 +52,7 @@ const postData = async (data, state) => {
 
 const updateData = async (newData, state) => {
   try {
-    await fetch("./backend/backend.php", {
+    await fetch("./backend/backend.php?type=kendaraan", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newData),
