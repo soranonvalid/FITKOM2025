@@ -70,6 +70,9 @@ switch ($method) {
         $kontakdriver = $input['kontakdriver'] ?? null;
         $tahun = $input['tahun'] ?? null;
         $foto = $input['foto'] ?? null;
+        $kodekirim = $input['kodekirim'] ?? null;
+        $tglkirim = $input['tglkirim'] ?? null;
+        $kodeproduk = $input['kodeproduk'] ?? null;
 
         $sql = "";
 
@@ -78,7 +81,7 @@ switch ($method) {
         } elseif (isset($_GET['type']) && $_GET['type'] == 'kendaraan') {
             $sql = "INSERT INTO `kendaraan`(`nopol`, `namakendaraan`, `jeniskendaraan`, `namadriver`, `kontakdriver`, `tahun`, `kapasitas`, `foto`) VALUES ('$nopol','$namakendaraan','$jeniskendaraan','$namadriver','$kontakdriver','$tahun','$kapasitas','$foto')";
         } elseif (isset($_GET['type']) && $_GET['type'] == 'daftarpengirimanbarang') {
-            $sql = "INSERT INTO ``";
+            $sql = "INSERT INTO `detailkirim` (`kodekirim`, `kodeproduk`) VALUES ('$kodekirim', '$kodeproduk'); INSERT INTO `masterkirim` (`kodekirim`, `tglkirim`, `nopol`) VALUES ('$kodekirim', '$tglkirim', '$nopol')";
         } else {
             $sql = "INSERT INTO `produk`(`kodeproduk`, `nama`, `satuan`, `harga`, `gambar`, `kodegudang`) VALUES ('$kode','$nama','$satuan','$harga','$gambar','$kodegudang')";
         }
