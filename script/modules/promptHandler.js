@@ -118,7 +118,7 @@ const validateCheck = (data, type) => {
 
   let kodes = [];
   kodes = products().map((k) => {
-    return k.kodeproduk.toLowerCase();
+    return k?.kode.toLowerCase();
   });
 
   // gambar
@@ -234,12 +234,6 @@ const validateCheck = (data, type) => {
     $(`#${type}Form #input-${type}-kode`).addClass("error");
     setError(`${type}`, error.message);
   } else if (kodes.includes(data.kode.toLowerCase()) && type === "create") {
-    error.status = true;
-    error.message = "kode tidak boleh sama";
-
-    $(`#${type}Form #input-${type}-kode`).addClass("error");
-    setError(`${type}`, error.message);
-  } else if (type === "edit") {
     error.status = true;
     error.message = "kode tidak boleh sama";
 

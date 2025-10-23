@@ -250,9 +250,6 @@ export const render = (max_index = 10, page = indexPage()) => {
             <td id="gudang">
                 <p class="no-bg">${product?.namagudang}</p>
             </td>
-            <td id="golongan">
-                <p class="no-bg">${product?.golongan}</p>
-            </td>
             <td id="satuan">
                 <p class="no-bg">${product?.satuan}</p>
             </td>
